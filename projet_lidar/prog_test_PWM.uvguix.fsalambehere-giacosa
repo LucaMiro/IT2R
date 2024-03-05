@@ -75,25 +75,25 @@
       <flags>2</flags>
       <showCmd>3</showCmd>
       <MinPosition>
-        <xPos>-1</xPos>
-        <yPos>-1</yPos>
+        <xPos>-32000</xPos>
+        <yPos>-32000</yPos>
       </MinPosition>
       <MaxPosition>
         <xPos>-1</xPos>
         <yPos>-1</yPos>
       </MaxPosition>
       <NormalPosition>
-        <Top>78</Top>
-        <Left>78</Left>
-        <Right>1518</Right>
-        <Bottom>837</Bottom>
+        <Top>52</Top>
+        <Left>52</Left>
+        <Right>1492</Right>
+        <Bottom>811</Bottom>
       </NormalPosition>
     </WindowPosition>
     <MDIClientArea>
       <RegID>0</RegID>
       <MDITabState>
-        <Len>455</Len>
-        <Data>01000000040000000100000001000000010000000100000000000000020000000000000001000000010000000000000028000000280000000100000004000000030000000100000044433A5C4B65696C5F76355C41524D5C5041434B5C4B65696C5C4C5043313730305F4446505C322E342E305C5254455F4472697665725C554152545F4C5043313778782E63000000000E554152545F4C5043313778782E6300000000BCA8E100FFFFFFFF2D553A5C4C496461725F495432525C5254455C4465766963655C4C5043313736385C5254455F4465766963652E68000000000C5254455F4465766963652E6800000000F0A0A100FFFFFFFF15553A5C4C496461725F495432525C54494D45522E63000000000754494D45522E6300000000BECEA100FFFFFFFF1D553A5C4C496461725F495432525C6D61696E5F746573745F50574D2E63000000000F6D61696E5F746573745F50574D2E6300000000FFDC7800FFFFFFFF0100000010000000C5D4F200FFDC7800BECEA100F0A0A100BCA8E1009CC1B600F7B88600D9ADC200A5C2D700B3A6BE00EAD6A300F6FA7D00B5E99D005FC3CF00C1838300CACAD500010000000000000002000000F40000006600000080070000FA020000</Data>
+        <Len>241</Len>
+        <Data>01000000040000000100000001000000010000000100000000000000020000000000000001000000010000000000000028000000280000000100000001000000000000000100000024553A5C495432525C70726F6A65745F6C696461725C6D61696E5F746573745F50574D2E63000000000F6D61696E5F746573745F50574D2E6300000000C5D4F200FFFFFFFF0100000010000000C5D4F200FFDC7800BECEA100F0A0A100BCA8E1009CC1B600F7B88600D9ADC200A5C2D700B3A6BE00EAD6A300F6FA7D00B5E99D005FC3CF00C1838300CACAD500010000000000000002000000F40000006600000080070000FA020000</Data>
       </MDITabState>
     </MDIClientArea>
     <ViewEx>
@@ -1344,39 +1344,12 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>3</ActiveTab>
-      <Doc>
-        <Name>C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\UART_LPC17xx.c</Name>
-        <ColumnNumber>27</ColumnNumber>
-        <TopLine>2885</TopLine>
-        <CurrentLine>2912</CurrentLine>
-        <Folding>1</Folding>
-        <ContractedFolders></ContractedFolders>
-        <PaneID>0</PaneID>
-      </Doc>
-      <Doc>
-        <Name>RTE\Device\LPC1768\RTE_Device.h</Name>
-        <ColumnNumber>0</ColumnNumber>
-        <TopLine>507</TopLine>
-        <CurrentLine>538</CurrentLine>
-        <Folding>1</Folding>
-        <ContractedFolders></ContractedFolders>
-        <PaneID>0</PaneID>
-      </Doc>
-      <Doc>
-        <Name>.\TIMER.c</Name>
-        <ColumnNumber>0</ColumnNumber>
-        <TopLine>42</TopLine>
-        <CurrentLine>72</CurrentLine>
-        <Folding>1</Folding>
-        <ContractedFolders></ContractedFolders>
-        <PaneID>0</PaneID>
-      </Doc>
+      <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>.\main_test_PWM.c</Name>
-        <ColumnNumber>8</ColumnNumber>
-        <TopLine>13</TopLine>
-        <CurrentLine>35</CurrentLine>
+        <ColumnNumber>0</ColumnNumber>
+        <TopLine>40</TopLine>
+        <CurrentLine>59</CurrentLine>
         <Folding>0</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

@@ -22,13 +22,13 @@ Dialog DLL:      TARMP1.DLL V1.24.0.0
  
 <h2>Project:</h2>
 U:\IT2R\projet_lidar\prog_test_PWM.uvprojx
-Project File Date:  02/08/2024
+Project File Date:  03/05/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 compiling main_test_PWM.c...
-main_test_PWM.c(64): warning:  #111-D: statement is unreachable
+main_test_PWM.c(81): warning:  #111-D: statement is unreachable
   	return 0;
 main_test_PWM.c(18): warning:  #177-D: variable "stop" was declared but never referenced
   	char stop[2] = {0xA5,0x25}; 
@@ -36,12 +36,24 @@ main_test_PWM.c(19): warning:  #177-D: variable "info" was declared but never re
   	char info[2] = {0xA5,0x50}; 
 main_test_PWM.c(20): warning:  #177-D: variable "health" was declared but never referenced
   	char health[2] = {0xA5,0x52}; 
-main_test_PWM.c(26): warning:  #550-D: variable "qualite" was set but never used
-  	uint16_t	qualite = 0;
-main_test_PWM.c: 5 warnings, 0 errors
+main_test_PWM.c(22): warning:  #177-D: variable "aff_QUALI" was declared but never referenced
+  	char aff_QUALI[20]; // TAB servant de chaine de caractères pour sprintf 
+main_test_PWM.c(23): warning:  #177-D: variable "aff_ANGLE" was declared but never referenced
+  	char aff_ANGLE[20];
+main_test_PWM.c(24): warning:  #177-D: variable "aff_DISTANCE" was declared but never referenced
+  	char aff_DISTANCE[20];
+main_test_PWM.c(28): warning:  #177-D: variable "DISTANCE_SORTED" was declared but never referenced
+  	short DISTANCE_SORTED[360]; // tableau de la distance en fonction de l'angle 
+main_test_PWM.c(30): warning:  #550-D: variable "qualite" was set but never used
+  	short qualite = 0; // variables des différentes réponses LIDAR 
+main_test_PWM.c(31): warning:  #550-D: variable "angle" was set but never used
+  	short	angle = 0;
+main_test_PWM.c(32): warning:  #550-D: variable "distance" was set but never used
+  	short	distance = 0;
+main_test_PWM.c: 11 warnings, 0 errors
 linking...
-Program Size: Code=17284 RO-data=7128 RW-data=52 ZI-data=860  
-".\Objects\prog_test_PWM.axf" - 0 Error(s), 5 Warning(s).
+Program Size: Code=15100 RO-data=7128 RW-data=52 ZI-data=860  
+".\Objects\prog_test_PWM.axf" - 0 Error(s), 11 Warning(s).
 
 <h2>Software Packages used:</h2>
 

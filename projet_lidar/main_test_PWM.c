@@ -5,62 +5,79 @@
 #include "GLCD_Config.h"                // Keil.MCB1700::Board Support:Graphic LCD
 #include <stdio.h> 
 
-extern ARM_DRIVER_USART Driver_USART0;
-extern GLCD_FONT GLCD_Font_16x24; 
+extern ARM_DRIVER_USART Driver_USART0; // Structure UART0
+extern GLCD_FONT GLCD_Font_16x24; // STRucture font LCD 
 
-void Init_UART(void);
+void Init_UART(void); // prototypes fonctions  
 void pwm_init_lidar(int DC); 
 
 
 int main(void){
 	
-	char start[2] = {0xA5,0x20}; 
+	char start[2] = {0xA5,0x20}; // tableaux de commandes pour le lidar 
 	char stop[2] = {0xA5,0x25}; 
 	char info[2] = {0xA5,0x50}; 
 	char health[2] = {0xA5,0x52}; 
 	
-	char aff_QUALI[20]; 
+	char aff_QUALI[20]; // TAB servant de chaine de caractères pour sprintf 
 	char aff_ANGLE[20];
 	char aff_DISTANCE[20];
-	char data[5];
-	short qualite = 0;
+	
+	char data[5]; // tableau récupération des 5 octets de réponse du lidar
+
+	short DISTANCE_SORTED[360]; // tableau de la distance en fonction de l'angle 
+	
+	short qualite = 0; // variables des différentes réponses LIDAR 
 	short	angle = 0;
 	short	distance = 0;
 	
-	GLCD_Initialize(); 
+	GLCD_Initialize();  // Initialisation LCD 
 	GLCD_SetBackgroundColor(GLCD_COLOR_BLUE);
 	GLCD_SetForegroundColor(GLCD_COLOR_YELLOW); 
 	GLCD_SetFont(&GLCD_Font_16x24);
 	GLCD_ClearScreen(); 
 	
-	Init_UART();	
-	pwm_init_lidar(80);
+	Init_UART(); // INItialisation UART 	
+	pwm_init_lidar(80); // Fonction configuration de la pwm (99 vitesse max, 0 vitesse nulle)  
 	
 		
 	while(Driver_USART0.GetStatus().tx_busy == 1){}; // attente buffer TX vide		
-	Driver_USART0.Send(start,2);
-			
+	Driver_USART0.Send(start,2); // Envoi de la commande de début d'acquisition 
+		
+//-----------------------------------------BOUCLE INFINIE------------------------------------------------------------------------	
+		
 	while(1){
-	Driver_USART0.Receive(data,5);
-	while (Driver_USART0.GetRxCount() <1 ) ;
 		
-	qualite = data[0]>>2; 
-	angle = ((((data[2] << 7) | data[1])) >> 1) / 64.0;
-	distance = (((data[4]<<7) | data[3])/4.0); 
+	Driver_USART0.Receive(data,5); // reception de 5 octets de réponse du LIDAR (1 octet de qualité (2 bits -> S et S- à supp ), 2 octets angle (bit C à supp), 2 octets distance )
+	while (Driver_USART0.GetRxCount() <1 ) ; // attente buffer RX vide
 		
-	sprintf(aff_QUALI, "Qualite = %3d" ,data[0] >> 2); 
-	GLCD_DrawString(0,0,aff_QUALI); 
+	qualite = data[0]>>2; // décalage de deux car deux bits b0 et b1 inutiles pour la qualité 
+	angle = ((((data[2] << 7) | data[1])) >> 1) / 64.0; // (data[1] >> 1 ) bit C inutile donc décalage de 1, (data[2] << 7) on décale de 7 pour le mettre à la suite, le | sert à "fusionner" les deux datas, division par 60 car doc 
+	distance = (((data[4]<<7) | data[3])/4.0); // même principe de "fusion" sauf que pas de bit à supprimmer puis division par 4 doc  
+
 		
 	
-	sprintf(aff_ANGLE, "Angle_f = %3d" ,angle); 
-	GLCD_DrawString(0,40,aff_ANGLE);
+	
+	//DISTANCE_SORTED[angle] = distance;
+		
+		
 	
 	
-	sprintf(aff_DISTANCE, "DISTANCE = %4d" ,distance); 
-	GLCD_DrawString(0,80,aff_DISTANCE); 
-		// neuille 
+//affichage qualite 
+	//sprintf(aff_QUALI, "Qualite = %3d" ,qualite); 
+	//GLCD_DrawString(0,0,aff_QUALI); 
+		
+//affichage angle  	
+	//sprintf(aff_ANGLE, "Angle_f = %3d" ,angle); 
+	//GLCD_DrawString(0,40,aff_ANGLE);
+		
+//affichage distance  
+	//sprintf(aff_DISTANCE, "DISTANCE = %4d" ,DISTANCE_SORTED[angle]); 
+	//GLCD_DrawString(0,80,aff_DISTANCE); 
+	
 	
 	}
+	
 	return 0;
 }
 
