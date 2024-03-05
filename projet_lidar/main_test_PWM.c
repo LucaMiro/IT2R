@@ -48,7 +48,10 @@ int main(void){
 	angle_f = (data[2] << 7) + (data[1] >> 1);
 	sprintf(aff_ANGLE, "Angle_f = %3d" ,angle_f); 
 	GLCD_DrawString(0,40,aff_ANGLE);
-		
+	
+	
+	sprintf(aff_DISTANCE, "DISTANCE = %3d" ,data[4]); 
+	GLCD_DrawString(0,80,aff_DISTANCE); 
 
 	
 	}

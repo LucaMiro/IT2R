@@ -16,5 +16,5 @@
 .\objects\ssp_lpc17xx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include\Driver_SPI.h
 .\objects\ssp_lpc17xx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include\Driver_Common.h
 .\objects\ssp_lpc17xx.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-.\objects\ssp_lpc17xx.o: U:\LIdar_IT2R\RTE\Device\LPC1768\RTE_Device.h
-.\objects\ssp_lpc17xx.o: U:\LIdar_IT2R\RTE\RTE_Components.h
+.\objects\ssp_lpc17xx.o: U:\IT2R\projet_lidar\RTE\Device\LPC1768\RTE_Device.h
+.\objects\ssp_lpc17xx.o: U:\IT2R\projet_lidar\RTE\RTE_Components.h
