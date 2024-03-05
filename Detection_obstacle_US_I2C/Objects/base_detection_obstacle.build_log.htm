@@ -27,19 +27,19 @@ Project File Date:  02/08/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling detection_obstacle.c...
-detection_obstacle.c(49): warning:  #177-D: variable "donnee" was declared but never referenced
-  	uint8_t donnee;
-detection_obstacle.c: 1 warning, 0 errors
 compiling programme_test.c...
-programme_test.c(17): warning:  #111-D: statement is unreachable
+programme_test.c(21): warning:  #111-D: statement is unreachable
   	return(0);
-programme_test.c(9): warning:  #177-D: variable "valeur" was declared but never referenced
-  	uint8_t valeur;
-programme_test.c: 2 warnings, 0 errors
+programme_test.c(9): warning:  #177-D: variable "j" was declared but never referenced
+  	int i=0,j=0;
+programme_test.c(10): warning:  #550-D: variable "adresse" was set but never used
+  	uint8_t adresse;
+programme_test.c(11): warning:  #177-D: variable "adress" was declared but never referenced
+  	uint8_t adress[16];
+programme_test.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=8584 RO-data=560 RW-data=16 ZI-data=1672  
-".\Objects\base_detection_obstacle.axf" - 0 Error(s), 3 Warning(s).
+Program Size: Code=8760 RO-data=560 RW-data=16 ZI-data=1672  
+".\Objects\base_detection_obstacle.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -58,20 +58,20 @@ Package Vendor: Keil
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.14.0.pack
-                ::Device:STM32Cube Framework:1.0.0 (API)
+                Keil::Device:STM32Cube Framework:Classic:1.7.6
                 STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
-   * Component: STM32Cube Framework Version: 1.0.0
    * Component: Classic Version: 1.7.6
-   * Component: Cortex Version: 1.7.6
-   * Component: Startup Version: 2.6.3
-   * Component: DMA Version: 1.7.6
+   * Component: STM32Cube Framework Version: 1.0.0
    * Component: Common Version: 1.7.6
-   * Component: I2C Version: 1.7.6
+   * Component: Startup Version: 2.6.3
+   * Component: Cortex Version: 1.7.6
    * Component: RCC Version: 1.7.6
    * Component: PWR Version: 1.7.6
    * Component: GPIO Version: 1.7.6
-   * Component: LED Version: 1.0.0
+   * Component: I2C Version: 1.7.6
+   * Component: DMA Version: 1.7.6
    * Component: I2C Version: 2.9
+   * Component: LED Version: 1.0.0
 
 <h2>Collection of Component include folders:</h2>
   U:\projet_IT2R\Detection_obstacle_US_I2C\RTE
@@ -92,43 +92,36 @@ Package Vendor: Keil
    * Component: ::Board Support:LED:1.00 (API)
       Include file:  Board\Board_LED.h
 
-   * Component: ::Device:STM32Cube Framework:1.0.0 (API)
-
    * Component: Keil::Device:STM32Cube Framework:Classic:1.7.6
       Include file:  MDK\Templates_LL\Inc\main.h
-      Include file:  MDK\Templates\Inc\main.h
       Source file:   MDK\Templates_LL\Src\main.c
-      Include file:  MDK\Templates\Inc\stm32f4xx_it.h
-      Source file:   MDK\Templates\Src\stm32f4xx_hal_msp.c
-      Source file:   MDK\Templates\Src\stm32f4xx_it.c
-      Source file:   MDK\Templates\Src\main.c
-      Include file:  MDK\Templates\Inc\stm32f4xx_hal_conf.h
       Include file:  CMSIS\Driver\Config\RTE_Device.h
+      Include file:  MDK\Templates\Inc\stm32f4xx_hal_conf.h
+      Source file:   MDK\Templates\Src\stm32f4xx_hal_msp.c
+      Include file:  MDK\Templates\Inc\stm32f4xx_it.h
+      Source file:   MDK\Templates\Src\stm32f4xx_it.c
+      Include file:  MDK\Templates\Inc\main.h
+      Source file:   MDK\Templates\Src\main.c
 
-   * Component: Keil::Device:STM32Cube HAL:Cortex:1.7.6
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c
-
-   * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
-      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
-      Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
-      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
-      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
-
-   * Component: Keil::Device:STM32Cube HAL:DMA:1.7.6
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c
+   * Component: ::Device:STM32Cube Framework:1.0.0 (API)
 
    * Component: Keil::Device:STM32Cube HAL:Common:1.7.6
       Include file:  Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c
 
-   * Component: Keil::Device:STM32Cube HAL:I2C:1.7.6
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c
+   * Component: Keil::Device:Startup:2.6.3
+      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
+      Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
+      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
+      Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
+      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
+
+   * Component: Keil::Device:STM32Cube HAL:Cortex:1.7.6
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c
 
    * Component: Keil::Device:STM32Cube HAL:RCC:1.7.6
-      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c
 
    * Component: Keil::Device:STM32Cube HAL:PWR:1.7.6
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c
@@ -137,11 +130,18 @@ Package Vendor: Keil
    * Component: Keil::Device:STM32Cube HAL:GPIO:1.7.6
       Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c
 
-   * Component: Keil.STM32F429I-Discovery::Board Support:LED:1.0.0
-      Source file:   MDK\Boards\ST\STM32F429I-Discovery\Common\LED_F429Discovery.c
+   * Component: Keil::Device:STM32Cube HAL:I2C:1.7.6
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c
+
+   * Component: Keil::Device:STM32Cube HAL:DMA:1.7.6
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c
+      Source file:   Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c
 
    * Component: Keil::CMSIS Driver:I2C:2.9
       Source file:   CMSIS\Driver\I2C_STM32F4xx.c
+
+   * Component: Keil.STM32F429I-Discovery::Board Support:LED:1.0.0
+      Source file:   MDK\Boards\ST\STM32F429I-Discovery\Common\LED_F429Discovery.c
 Build Time Elapsed:  00:00:04
 </pre>
 </body>

@@ -6,18 +6,16 @@ extern ARM_DRIVER_I2C Driver_I2C1;
 
 //programme de test pour déterminer les adresses des capteurs
 int main(void){
-	int i=0, j=0, attente=0;
-	uint8_t adresse;
+	int i=0,j=0;
+	uint8_t adresse, portee;
+
 	configuration_liaisonI2C();
+	LED_Initialize();
+	
 	while(1){
-		for(i=0;i<16;i++){
-			for(j=0;j<50;j++){
-				attente=0;
-				test(adresse);
-				for(attente=0;attente<1000;attente++);
-			}
-			adresse++;
-		}
+		mesure_cm(adresse);
+		for(i=0;i<100000;i++);
+		i=0;
 	}
 	return(0);
 }
