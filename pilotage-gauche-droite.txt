@@ -1,0 +1,101 @@
+#include "stdio.h"
+#include "LPC17xx.h"  
+#include "GPIO.h"
+#include "Timer.h"
+
+int a=0;
+
+	
+void Init_moteur_direction(void){
+
+	//Roue droite
+	int rapport_cyclique = 37500;
+	
+	// initialisation de timer 1
+	LPC_SC->PCONP = LPC_SC->PCONP | 0x00000040;   // enable PWM1
+
+
+	// TC s'incremente toutes les 20 ms
+	LPC_PWM1->PR = 0;  // prescaler
+
+  	LPC_PWM1->MR0 = 499999;    // Ceci ajuste la periode de la PWM
+	LPC_PWM1->MR3 = rapport_cyclique-1;    // ceci ajuste la duree de l'etat haut
+
+	LPC_PINCON->PINSEL7 = LPC_PINCON->PINSEL7 | 0x00300000; //  P3.26 est la sortie PWM Channel 3 de Timer 1
+
+	LPC_PWM1->MCR = LPC_PWM1->MCR | 0x00000002; // Timer relance quand MR0 repasse a 0
+	LPC_PWM1->LER = LPC_PWM1->LER | 0x00000009;  // ceci donne le droit de modifier dynamiquement la valeur du rapport cyclique
+	                                             // bit 0 = MR0    bit3 = MR3
+	LPC_PWM1->PCR = LPC_PWM1->PCR | 0x00000e00;  // autorise la sortie PWM
+
+	LPC_PWM1->TCR = 1;  /*validation de timer 1 et reset counter */
+}
+
+
+/*
+25000 : 1 ms environ DROITE
+37500 : 1.5 ms environ AVANT
+49999 : 2ms environ GAUCHE
+*/
+
+void tourner(int valeur){
+	int rapport_cyclique = valeur;
+	LPC_PWM1->MR3 = rapport_cyclique-1;
+
+}
+
+
+void TIMER0_IRQHandler(void){
+	
+	LPC_TIM0->IR |= 1<<0;
+	
+	switch (a){
+
+	case 0:	
+		tourner(25000);
+		break;
+	case 1:
+		tourner(37500);
+		break;
+	case 2:
+		tourner(49999);
+		break;
+	case 3:
+		tourner(37500);
+		a=-1;
+		break;
+	
+	
+	
+
+}
+	a++;
+}
+
+
+int main(void){
+
+	Initialise_GPIO();
+	Init_moteur_direction();
+	
+	//Initialisation du Timer
+	initTimer0(0,49999999); //toutes les deux secondes
+	LPC_TIM0->MCR |= 0x03;
+	NVIC_SetPriority(TIMER0_IRQn,0);
+	NVIC_EnableIRQ(TIMER0_IRQn);
+	
+
+	//tourner(25000); //permet de tourner a DROITE
+	
+	
+	
+
+
+	while(1){
+	//on peut mettre a jour le rapport cyclique dans cette boucle infinie
+	//par exemple la fonction pour tourner
+	}
+	
+	return 0;
+}
+
