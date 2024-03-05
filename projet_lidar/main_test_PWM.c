@@ -22,10 +22,10 @@ int main(void){
 	char aff_QUALI[20]; 
 	char aff_ANGLE[20];
 	char aff_DISTANCE[20];
-	uint8_t data[5];
-	uint16_t	qualite = 0;
-	uint16_t	angle = 0;
-	uint16_t	distance = 0;
+	char data[5];
+	short qualite = 0;
+	short	angle = 0;
+	short	distance = 0;
 	
 	GLCD_Initialize(); 
 	GLCD_SetBackgroundColor(GLCD_COLOR_BLUE);
@@ -46,7 +46,7 @@ int main(void){
 		
 	qualite = data[0]>>2; 
 	angle = ((((data[2] << 7) | data[1])) >> 1) / 64.0;
-	distance = (((data[4]<<8) | data[3])/4.0); 
+	distance = (((data[4]<<7) | data[3])/4.0); 
 		
 	sprintf(aff_QUALI, "Qualite = %3d" ,data[0] >> 2); 
 	GLCD_DrawString(0,0,aff_QUALI); 
@@ -58,7 +58,7 @@ int main(void){
 	
 	sprintf(aff_DISTANCE, "DISTANCE = %4d" ,distance); 
 	GLCD_DrawString(0,80,aff_DISTANCE); 
-
+		// neuille 
 	
 	}
 	return 0;
