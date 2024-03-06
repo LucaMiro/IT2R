@@ -1,0 +1,77 @@
+#include <stdio.h>// ::CMSIS Driver:I2C
+#include "Driver_I2C.h"
+#include "Driver_USART.h"               // ::CMSIS Driver:USART
+
+extern ARM_DRIVER_USART Driver_USART2;
+
+
+extern ARM_DRIVER_I2C Driver_I2C1;
+
+void Init_UART(void){
+Driver_USART2.Initialize(NULL);
+Driver_USART2.PowerControl(ARM_POWER_FULL);
+Driver_USART2.Control( ARM_USART_MODE_ASYNCHRONOUS |
+ARM_USART_DATA_BITS_8 |
+ARM_USART_STOP_BITS_1 |
+ARM_USART_PARITY_NONE |
+ARM_USART_FLOW_CONTROL_NONE,
+115200);
+
+Driver_USART2.Control(ARM_USART_CONTROL_TX,1);
+Driver_USART2.Control(ARM_USART_CONTROL_RX,1);
+}
+
+void Init_I2C(void){
+	Driver_I2C1.Initialize(NULL);
+	Driver_I2C1.PowerControl(ARM_POWER_FULL);
+	Driver_I2C1.Control(	ARM_I2C_BUS_SPEED,				// 2nd argument = débit
+							ARM_I2C_BUS_SPEED_STANDARD  );	   // 100 kHz
+	Driver_I2C1.Control(	ARM_I2C_BUS_CLEAR,
+							0 );
+}
+
+void write1byte (unsigned char composant, unsigned char registre, unsigned char valeur)
+{
+	  uint8_t tab[10];
+    tab[0] = registre;
+		tab[1] = valeur;
+		// Ecriture vers registre esclave : START + ADDR(W) + 1W_DATA + 1W_DATA + STOP
+		Driver_I2C1.MasterTransmit (composant, tab, 2, false);		// false = avec stop
+		while (Driver_I2C1.GetStatus().busy == 1);	// attente fin transmission
+
+}
+
+
+unsigned char read2byte (unsigned char composant, unsigned char registre){
+
+	uint8_t tab[15],maValeur;
+ 
+	
+	Driver_I2C1.MasterTransmit (composant, &registre, 1, false);		// false = avec stop
+	while (Driver_I2C1.GetStatus().busy == 1);	// attente fin transmission
+	
+	Driver_I2C1.MasterReceive (composant, &maValeur, 2, false);		// false = avec stop
+	while (Driver_I2C1.GetStatus().busy == 1);	// attente fin transmission
+	
+ return maValeur; 
+}
+
+
+int main(void){
+	unsigned short data = 0;
+	
+	Init_I2C();
+	Init_UART();
+	write1byte(0x52,0xF0,0x55);	
+	while(1)
+	{
+	 	write1byte(0x52,0x00,0x00);	
+		data = read2byte (0x52, 0x00);
+		
+		while(Driver_USART2.GetStatus().tx_busy == 1);		
+		Driver_USART2.Send(&data,16);
+	}
+	
+	return 0;
+
+}
