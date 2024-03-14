@@ -1,35 +1,37 @@
 #include "stm32f4xx_hal.h"
 #include "detection_obstacle.h"
 
-extern ARM_DRIVER_I2C Driver_I2C1;
-
+//fonctions d'initialisation des périphériques
 static void initialisation_GPIO(void);
 
+//structures d'initialisation GPIO : une par broche
 GPIO_InitTypeDef initGPIO_1;
 GPIO_InitTypeDef initGPIO_2;
 GPIO_InitTypeDef initGPIO_3;
 
-//programme de test pour déterminer les adresses des capteurs
+//programme de test allumage LEDs en fonction du capteur "touché"
 int main(void){
-	int i=0,j=0;
-	uint8_t adresse, portee, mesure;
+	int i=0;
+	uint8_t mesure, mesureBis;
 
 	configuration_liaisonI2C();
 	initialisation_GPIO();
 	
 	while(1){
+		//defines noms capteurs présent dans le header
 		mesure = mesure_cm(CAPTEUR_E0);
-		if(mesure < 0x25){
+		mesureBis = mesure_cm(CAPTEUR_E4);
+		if(mesure < 0x10){ 
 			HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3, GPIO_PIN_SET);
-			//mesure = 0xFF;
-		} else {HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3, GPIO_PIN_RESET);}	
-		if(mesure < 0x10){
+		} else {
+			HAL_GPIO_WritePin(GPIOC,GPIO_PIN_3, GPIO_PIN_RESET);
+		}	
+		if(mesureBis < 0x10){
 			HAL_GPIO_WritePin(GPIOC,GPIO_PIN_4, GPIO_PIN_SET);
-		} else {HAL_GPIO_WritePin(GPIOC,GPIO_PIN_4, GPIO_PIN_RESET);}	
-		
-		//else if(mesure < 0x05)HAL_GPIO_WritePin(GPIOC,GPIO_PIN_5, GPIO_PIN_SET);
-	
-		for(i=0;i<1000000;i++);
+		} else {
+			HAL_GPIO_WritePin(GPIOC,GPIO_PIN_4, GPIO_PIN_RESET);
+		}	
+		for(i=0;i<10000;i++);
 		//i=0;
 	}
 	return(0);
