@@ -3,15 +3,8 @@
 
 extern ARM_DRIVER_SPI Driver_SPI1;
 
-
-
-
-
-
 void Lum_init(void){
 	
-	int i=0;
-
 
 	RCC->APB2ENR |= (1<<8);
 	RCC->AHB1ENR |= (1<<0); //GPIOA
@@ -20,7 +13,6 @@ void Lum_init(void){
 	
 	ADC1->SQR3 |= (1<<0);
 	ADC1->CR2 |= (1<<0);
-
 
 	Driver_SPI1.Initialize(NULL);
   Driver_SPI1.PowerControl(ARM_POWER_FULL);
@@ -82,3 +74,4 @@ void tabSend(char tab[]){
 	Driver_SPI1.Send(tab,248);
 	Driver_SPI1.Control(ARM_SPI_CONTROL_SS, ARM_SPI_SS_INACTIVE);
 }
+

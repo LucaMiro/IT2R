@@ -883,11 +883,12 @@ erwork --depend=.\objects\startup_stm32f407xx.d -o.\objects\startup_stm32f407xx
 .o -IU:\projetvoitureS4_partiephares\RTE -IU:\projetvoitureS4_partiephares\RTE\
 Device\STM32F407VGTx -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include -
 IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include -IC:\Keil_v5\ARM\PACK
-\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Keil_
-v5\ARM\PACK\Keil\STM32F4xx_DFP\2.14.0\Drivers\STM32F4xx_HAL_Driver\Inc --predef
-ine="__UVISION_VERSION SETA 517" --predefine="_RTE_ SETA 1" --predefine="STM32F
-407xx SETA 1" --list=.\listings\startup_stm32f407xx.lst RTE\Device\STM32F407VGT
-x\startup_stm32f407xx.s
+\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.
+14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32
+F4xx_DFP\2.14.0\Drivers\STM32F4xx_HAL_Driver\Inc --predefine="__RTX SETA 1" --p
+redefine="__UVISION_VERSION SETA 517" --predefine="_RTE_ SETA 1" --predefine="S
+TM32F407xx SETA 1" --list=.\listings\startup_stm32f407xx.lst RTE\Device\STM32F4
+07VGTx\startup_stm32f407xx.s
 
 
 
@@ -1991,4 +1992,4 @@ Symbol: __use_two_region_memory
       None
 Comment: __use_two_region_memory unused
 3 symbols
-448 symbols in table
+449 symbols in table
