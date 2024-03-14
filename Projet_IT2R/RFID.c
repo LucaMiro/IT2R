@@ -3,13 +3,8 @@
 #include "Board_GLCD.h"                 // ::Board Support:Graphic LCD
 #include "stdio.h"
 
-
 extern ARM_DRIVER_USART Driver_USART1;
 extern GLCD_FONT GLCD_Font_16x24 ;
-
-void Init_UART_RFID(void);
-void Identification_RFID (void) ; 
-
 
 void Init_UART_RFID(void){
 	Driver_USART1.Initialize(NULL);
@@ -24,12 +19,8 @@ void Init_UART_RFID(void){
 	Driver_USART1.Control(ARM_USART_CONTROL_RX,1);
 }
 
-int main (void){
-	
-	Init_UART_RFID();
-	Identification_RFID();
-	
-}
+
+
 
 void Identification_RFID (void)
 {

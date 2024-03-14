@@ -421,6 +421,11 @@
               <FileType>1</FileType>
               <FilePath>.\baseUART.c</FilePath>
             </File>
+            <File>
+              <FileName>RFID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RFID.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

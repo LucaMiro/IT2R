@@ -21,7 +21,7 @@ Target DLL:      UL2CM3.DLL V1.156.1.0
 Dialog DLL:      TARMP1.DLL V1.24.0.0
  
 <h2>Project:</h2>
-U:\Projet_IT2R\Projet_IT2R.uvprojx
+C:\Users\TEMP.GEII2.002\Documents\Projet_IT2R\Projet_IT2R.uvprojx
 Project File Date:  02/12/2024
 
 <h2>Output:</h2>
@@ -29,22 +29,20 @@ Project File Date:  02/12/2024
 Rebuild target 'Target 1'
 compiling GLCD_Fonts.c...
 compiling baseUART.c...
-baseUART.c(68): warning:  #111-D: statement is unreachable
-  	return 0;
-baseUART.c(69): warning:  #1-D: last line of file ends without a newline
+baseUART.c(77): warning:  #1-D: last line of file ends without a newline
   }
-baseUART.c: 2 warnings, 0 errors
+baseUART.c: 1 warning, 0 errors
 compiling GLCD_MCB1700.c...
-assembling startup_LPC17xx.s...
 compiling SSP_LPC17xx.c...
-compiling UART_LPC17xx.c...
-compiling system_LPC17xx.c...
 compiling GPIO_LPC17xx.c...
 compiling GPDMA_LPC17xx.c...
+compiling UART_LPC17xx.c...
 compiling PIN_LPC17xx.c...
+assembling startup_LPC17xx.s...
+compiling system_LPC17xx.c...
 linking...
-Program Size: Code=15508 RO-data=7128 RW-data=52 ZI-data=860  
-".\Objects\Projet_IT2R.axf" - 0 Error(s), 2 Warning(s).
+Program Size: Code=15460 RO-data=7128 RW-data=52 ZI-data=860  
+".\Objects\Projet_IT2R.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -58,15 +56,15 @@ Package Vendor: ARM
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.LPC1700_DFP.2.4.0.pack
-                Keil::Device:PIN:1.0.0
+                Keil::Device:GPDMA:1.2.0
                 NXP LPC1700 Series Device Support, Drivers and Examples for MCB1700 and LPC1788-32
+   * Component: GPDMA Version: 1.2.0
    * Component: PIN Version: 1.0.0
+   * Component: Startup Version: 1.0.0
+   * Component: GPIO Version: 1.1.0
+   * Component: USART Version: 2.6.0
    * Component: Graphic LCD Version: 1.0.0
    * Component: SSP Version: 2.7.0
-   * Component: USART Version: 2.6.0
-   * Component: Startup Version: 1.0.0
-   * Component: GPDMA Version: 1.2.0
-   * Component: GPIO Version: 1.1.0
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.MDK-Middleware.7.0.0.pack
@@ -75,8 +73,8 @@ Package Vendor: Keil
    * Component: Graphic LCD Version: 1.00
 
 <h2>Collection of Component include folders:</h2>
-  U:\Projet_IT2R\RTE
-  U:\Projet_IT2R\RTE\Device\LPC1768
+  C:\Users\TEMP.GEII2.002\Documents\Projet_IT2R\RTE
+  C:\Users\TEMP.GEII2.002\Documents\Projet_IT2R\RTE\Device\LPC1768
   C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include
   C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include
   C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Boards\Keil\MCB1700\Common
@@ -94,38 +92,38 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.3.0
 
+   * Component: Keil::Device:GPDMA:1.2.0
+      Include file:  RTE_Driver\GPDMA_LPC17xx.h
+      Source file:   RTE_Driver\GPDMA_LPC17xx.c
+
    * Component: Keil::Device:PIN:1.0.0
       Include file:  RTE_Driver\PIN_LPC17xx.h
       Source file:   RTE_Driver\PIN_LPC17xx.c
 
-   * Component: Keil.MCB1700::Board Support:Graphic LCD:1.0.0
-      Include file:  Boards\Keil\MCB1700\Common\GLCD_Config.h
-      Source file:   Boards\Keil\MCB1700\Common\GLCD_Fonts.c
-      Source file:   Boards\Keil\MCB1700\Common\GLCD_MCB1700.c
-
-   * Component: Keil::CMSIS Driver:SPI:SSP:2.7.0
-      Source file:   RTE_Driver\SSP_LPC17xx.c
-
-   * Component: Keil::CMSIS Driver:USART:2.6.0
-      Source file:   RTE_Driver\UART_LPC17xx.c
-
    * Component: Keil::Device:Startup:1.0.0
-      Include file:  Device\Include\LPC17xx.h
+      Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\startup_LPC17xx.s
       Source file:   Device\Source\system_LPC17xx.c
-      Include file:  RTE_Driver\Config\RTE_Device.h
-
-   * Component: Keil::Device:GPDMA:1.2.0
-      Include file:  RTE_Driver\GPDMA_LPC17xx.h
-      Source file:   RTE_Driver\GPDMA_LPC17xx.c
+      Include file:  Device\Include\LPC17xx.h
 
    * Component: Keil::Device:GPIO:1.1.0
       Include file:  RTE_Driver\GPIO_LPC17xx.h
       Source file:   RTE_Driver\GPIO_LPC17xx.c
 
+   * Component: Keil::CMSIS Driver:USART:2.6.0
+      Source file:   RTE_Driver\UART_LPC17xx.c
+
+   * Component: Keil.MCB1700::Board Support:Graphic LCD:1.0.0
+      Source file:   Boards\Keil\MCB1700\Common\GLCD_Fonts.c
+      Include file:  Boards\Keil\MCB1700\Common\GLCD_Config.h
+      Source file:   Boards\Keil\MCB1700\Common\GLCD_MCB1700.c
+
+   * Component: Keil::CMSIS Driver:SPI:SSP:2.7.0
+      Source file:   RTE_Driver\SSP_LPC17xx.c
+
    * Component: ::Board Support:Graphic LCD:1.00 (API)
       Include file:  Board\Board_GLCD.h
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
