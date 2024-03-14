@@ -22,9 +22,9 @@ void Init_UART(void){
 }
 
 int main (void){
-	
+	char bon_badge;
 	char identite_badge[14] = {0x02,0x33,0x43,0x30,0x30,0x34,0x44,0x39,0x35,0x44,0x32,0x33,0x36,0x03}  ; 
-	char tab [14]; // 16 octets = 16 * 8 - 1 = 127
+	char tab [14]; // 14 octets = 14 * 8 - 1 = 111
 	int i = 0 ;
 	Init_UART();
 	GLCD_Initialize();
@@ -34,24 +34,36 @@ int main (void){
 	
 	while (1){
 		while(Driver_USART1.GetStatus().tx_busy == 1); // attente buffer TX vide
-		GLCD_DrawString(50,100,"etape 1");
-		Driver_USART1.Receive(tab,128); // la fonction remplira jusqu'à 128 cases
-		GLCD_DrawString(50,100,"etape 2");
-		while (Driver_USART1.GetRxCount() <128 ) ; // on attend que 128 cases soient pleines DOUTE !
-		GLCD_DrawString(50,100,"etape 3");
+		GLCD_DrawString(0, 2*24,"etape 1");
+		Driver_USART1.Receive(tab,14); 
+		GLCD_DrawString(0, 3*24,"etape 2");
 		
+		while (Driver_USART1.GetRxCount() < 14 ) ; 
+		GLCD_DrawString(0, 4*24,"etape 3 ");
+		
+		bon_badge = 1;
 		
 		for ( i = 0 ; i < 14 ; i ++ ) 
 		{
-			if ( tab[i] == identite_badge[i] )
+			//GLCD_DrawString(0, 10*24,"avant if");
+			if ( tab[i] != identite_badge[i] )
 			{
-				GLCD_DrawString(50,100,"BON BADGE !");
+				bon_badge = 0;
+				break;
 			}
-			else 
-				{
-					GLCD_DrawString(50,100,"VOLEUR !");
-				}	
 		}	
-	return 0;
+		
+		if (bon_badge == 1)
+			{
+			GLCD_DrawString(0, 5*24,"            ");
+			GLCD_DrawString(0, 5*24,"BON BADGE");
+		}
+		else
+			{
+			
+			GLCD_DrawString(0, 5*24,"            ");
+			GLCD_DrawString(0, 5*24,"VOLEUR");
+			}
 	}
+	return 0;
 }
