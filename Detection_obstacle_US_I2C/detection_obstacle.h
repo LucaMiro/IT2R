@@ -1,13 +1,13 @@
 #include "Driver_I2C.h"
 
-//définition adresse/numéro capteurs
+//dÃ©finition adresse/numÃ©ro capteurs
 #define CAPTEUR_E0 0x70 //emplacement :
 #define CAPTEUR_E2 0x71 //emplacement :
 #define CAPTEUR_E4 0x72 //emplacement :
 #define CAPTEUR_E6 0x73 //emplacement :
 #define CAPTEUR_E8 0x74 //emplacement :
 
-//définition de la portée
+//dÃ©finition de la portÃ©e
 #define PORTEE_MAX 0xFF
 #define PORTEE_DEMI 0x80
 #define PORTEE_4M 0x5D
@@ -22,5 +22,5 @@ void adressage(uint8_t adresseCible, uint8_t adresseComposant);
 
 void config_portee(uint8_t portee, uint8_t adresse);
 void test(uint8_t adresse);
-uint8_t mesure_cm(uint8_t adresse, uint8_t adresseComposant);
+uint8_t mesure_cm(uint8_t adresse);
 
