@@ -9,8 +9,9 @@
 
 #define PI 3.14159265  
 
-osThreadId ID_GetLidarData ;
+osThreadId ID_GetLidarData ; 
 osThreadId ID_PrintLidarData;
+
 osMailQId ID_BAL_DATALIDAR;
 
 typedef struct {
@@ -21,7 +22,7 @@ typedef struct {
 
 void Thread_Data_Lidar(void const *argument);
 void Thread_Print_Lidar(void const *argument);
-osMailQDef (BAL_DATALIDAR,360,DATASEND);
+osMailQDef (BAL_DATALIDAR,16,DATASEND);
 
 osThreadDef (Thread_Data_Lidar,osPriorityNormal,1,0);
 osThreadDef (Thread_Print_Lidar,osPriorityNormal,1,0);
@@ -86,6 +87,7 @@ void pwm_init_lidar(int DC){
 	
 	LPC_PWM1->PR = 12;  // prescaler
 	LPC_PWM1->MR0 = 99;    // MR0+1=100   la période de la PWM vaut 1ms
+
 	
 	LPC_PINCON->PINSEL4 = LPC_PINCON->PINSEL4| 0x00000400; // P2.5 bit 11 à 0 bit 10 à 1 
 	
@@ -105,7 +107,7 @@ void Thread_Data_Lidar(void const *argument){
 
 	char data[5]; // tableau récupération des 5 octets de réponse du lidar
 
-	short DISTANCE_SORTED[360]; // tableau de la distance en fonction de l'angle 
+	//short DISTANCE_SORTED[360]; // tableau de la distance en fonction de l'angle 
 	
 	short qualite = 0; // variables des différentes réponses LIDAR 
 	short	angle = 0;
@@ -122,13 +124,14 @@ void Thread_Data_Lidar(void const *argument){
 	angle = ((((data[2] << 7) | data[1])) >> 1) / 64.0; // (data[1] >> 1 ) bit C inutile donc décalage de 1, (data[2] << 7) on décale de 7 pour le mettre à la suite, le | sert à "fusionner" les deux datas, division par 60 car doc 
 	distance = (((data[4]<<7) | data[3])/4.0); // même principe de "fusion" sauf que pas de bit à supprimmer puis division par 4 doc
 		
-	if(qualite > 20){
-		
-		ptr_send = osMailAlloc(ID_BAL_DATALIDAR,osWaitForever); 
+
+	
+		ptr_send = (DATASEND*) osMailAlloc(ID_BAL_DATALIDAR,osWaitForever); 
 		ptr_send->angle_S = angle;
 		ptr_send->distance_S = distance; 	
-		osMailPut(ID_BAL_DATALIDAR,ptr_send); 	
-	}
+		osMailPut(ID_BAL_DATALIDAR,ptr_send);
+	
+	
 	
   
 	
@@ -140,36 +143,59 @@ void Thread_Print_Lidar(void const *argument){
 	osEvent EVretour; 
 	DATASEND *ptr_rec; 
 	short distance_R, angle_R; 
-	float angle_rad; 
-	int x;
-	int y;
-	
-	
-	
-	
-	
-	
-	char aff_QUALI[20]; // TAB servant de chaine de caractères pour sprintf 
+	float distance_pix, angle_rad; 
+	float x,y,i;
+
+	char aff_COS[20];
+	char aff_ANGLE[20];
+	char aff_SIN[20];
+	/*
+	char aff_COS[20]; // TAB servant de chaine de caractères pour sprintf 
 	char aff_ANGLE[20];
 	char aff_DISTANCE[20];
+	*/
 	
 	while(1){
 		
 		EVretour = osMailGet(ID_BAL_DATALIDAR,osWaitForever); 
 		
-		ptr_rec = EVretour.value.p; 
+		ptr_rec = (DATASEND*)EVretour.value.p; 
 		distance_R = ptr_rec->distance_S; 
 		angle_R = ptr_rec->angle_S; 
 		
 		osMailFree(ID_BAL_DATALIDAR,ptr_rec); 
 		
-	  
+		
+			
 		angle_rad = angle_R * (PI /180.0);
 		
-		x = (int)(distance_R*cos(angle_rad));
-		y = (int)(distance_R*sin(angle_rad));
+		
+		if (distance_R > 20000) distance_R = 20000; 
+		
+		distance_pix = distance_R *(120/80); 
+		
+		x = distance_pix*cos(angle_rad);
+		y = distance_pix*sin(angle_rad);
+		
+		if (x >160)x=159;
+		if (x <-160)x=-160;
+		if (y >120)y=119;
+		if (y<-120)y=-120;
+		
+		//----------------------affichage cos sin angle----------------------------
+		/*sprintf(aff_COS, "cos  = %f" ,cos(angle_rad)); 
+		GLCD_DrawString(0,40,aff_COS);
+		sprintf(aff_ANGLE, "x  = %4f" ,x);  
+		GLCD_DrawString(0,80,aff_ANGLE);
+		sprintf(aff_SIN, "y  = %4f" ,y);  
+		GLCD_DrawString(0,120,aff_SIN);*/
+				
+		
 		
 		GLCD_DrawPixel(x+160, y+120);
+			
+		
+		
 		
 		/*sprintf(aff_ANGLE, " %3d" ,x); 
 		GLCD_DrawString(0,40,aff_ANGLE);
@@ -178,27 +204,16 @@ void Thread_Print_Lidar(void const *argument){
 		GLCD_DrawString(0,80,aff_DISTANCE);*/
 		
 		
+	 //--------------affichage données en dur------------------------------- 
+	 /*
+	 //affichage angle  	
+		sprintf(aff_ANGLE, "Angle = %3d" ,angle_R); 
+		GLCD_DrawString(0,40,aff_ANGLE);
 		
-		
-	//affichage qualite 
-	/*sprintf(aff_QUALI, "Qualite = %3d" ,qualite); 
-	GLCD_DrawString(0,0,aff_QUALI); 
-		
-//affichage angle  	
-	sprintf(aff_ANGLE, "Angle_f = %3d" ,angle); 
-	GLCD_DrawString(0,40,aff_ANGLE);
-		
-//affichage distance  
-	sprintf(aff_DISTANCE, "DISTANCE = %4d" ,distance); 
-	GLCD_DrawString(0,80,aff_DISTANCE); 
-		
-		*/
-		 
-
-
-
-
-
+		//affichage distance  
+		sprintf(aff_DISTANCE, "DISTANCE = %4d" ,distance_R); 
+		GLCD_DrawString(0,80,aff_DISTANCE);
+	 */
 	}
 
 }
