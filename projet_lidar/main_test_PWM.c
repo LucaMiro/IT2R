@@ -9,6 +9,7 @@
 
 #define PI 3.14159265  
 
+
 osThreadId ID_GetLidarData ; 
 osThreadId ID_PrintLidarData;
 
@@ -22,11 +23,13 @@ typedef struct {
 
 void Thread_Data_Lidar(void const *argument);
 void Thread_Print_Lidar(void const *argument);
+	
+void myUSART_callback(uint32_t event); 
+	
 osMailQDef (BAL_DATALIDAR,16,DATASEND);
 
 osThreadDef (Thread_Data_Lidar,osPriorityNormal,1,0);
 osThreadDef (Thread_Print_Lidar,osPriorityNormal,1,0);
-
 
 
 extern ARM_DRIVER_USART Driver_USART0; // Structure UART0
@@ -38,12 +41,12 @@ void pwm_init_lidar(int DC);
 
 int main(void){
 	
-	char start[2] = {0xA5,0x20}; // tableaux de commandes pour le lidar 
+	/*char start[2] = {0xA5,0x20}; // tableaux de commandes pour le lidar 
 	char stop[2] = {0xA5,0x25}; 
 	char info[2] = {0xA5,0x50}; 
-	char health[2] = {0xA5,0x52}; 
+	char health[2] = {0xA5,0x52};*/
 	
-	osKernelInitialize() ;
+	osKernelInitialize();
 	
 	GLCD_Initialize();  // Initialisation LCD 
 	GLCD_SetBackgroundColor(GLCD_COLOR_BLUE);
@@ -56,19 +59,17 @@ int main(void){
 	
 	ID_BAL_DATALIDAR = osMailCreate(osMailQ(BAL_DATALIDAR),NULL);
 	ID_GetLidarData = osThreadCreate ( osThread(Thread_Data_Lidar), NULL ) ;
-	ID_GetLidarData = osThreadCreate ( osThread(Thread_Print_Lidar), NULL ) ;
+	ID_PrintLidarData = osThreadCreate ( osThread(Thread_Print_Lidar), NULL ) ;
 	
-	while(Driver_USART0.GetStatus().tx_busy == 1){}; // attente buffer TX vide		
-	Driver_USART0.Send(start,2); // Envoi de la commande de début d'acquisition 
-		
 	osKernelStart() ; // lancement horloge TR, main retrouve sa priorité
+	
 	osDelay(osWaitForever) ;
-		
+	
 	return 0;
 }
 
 void Init_UART(void){
-	Driver_USART0.Initialize(NULL);
+	Driver_USART0.Initialize(myUSART_callback);
 	Driver_USART0.PowerControl(ARM_POWER_FULL);
 	Driver_USART0.Control(	ARM_USART_MODE_ASYNCHRONOUS |
 							ARM_USART_DATA_BITS_8		|
@@ -79,6 +80,33 @@ void Init_UART(void){
 	Driver_USART0.Control(ARM_USART_CONTROL_TX,1);
 	Driver_USART0.Control(ARM_USART_CONTROL_RX,1);
 }
+
+void myUSART_callback(uint32_t event)
+{
+  uint32_t mask;
+  mask = ARM_USART_EVENT_RECEIVE_COMPLETE  |
+         ARM_USART_EVENT_TRANSFER_COMPLETE |
+         ARM_USART_EVENT_SEND_COMPLETE     |
+         ARM_USART_EVENT_TX_COMPLETE       ;
+	
+  if (event & ARM_USART_EVENT_SEND_COMPLETE) {
+    /* Success: Wakeup Thread */
+    osSignalSet(ID_GetLidarData, 0x04);
+  }
+	  if (event & ARM_USART_EVENT_RECEIVE_COMPLETE) {
+    /* Success: Wakeup Thread */
+    osSignalSet(ID_GetLidarData, 0x01);
+  }
+		
+  /* if (event & ARM_USART_EVENT_RX_TIMEOUT) {
+    __breakpoint(0);  
+  }
+  if (event & (ARM_USART_EVENT_RX_OVERFLOW | ARM_USART_EVENT_TX_UNDERFLOW)) {
+    __breakpoint(0);  
+  }*/
+	
+}
+
 
 void pwm_init_lidar(int DC){
 	
@@ -101,43 +129,50 @@ void pwm_init_lidar(int DC){
 	LPC_PWM1->TCR = 1;  /*validation de timer  et reset counter */
 }
 
+
 void Thread_Data_Lidar(void const *argument){
 	
-	DATASEND *ptr_send; 
-
-	char data[5]; // tableau récupération des 5 octets de réponse du lidar
-
-	//short DISTANCE_SORTED[360]; // tableau de la distance en fonction de l'angle 
+	osEvent recep_ok;
+	DATASEND *ptr_send;
+	
+	int i = 0; 
 	
 	short qualite = 0; // variables des différentes réponses LIDAR 
 	short	angle = 0;
 	short	distance = 0;
 	
+	char data[5]; // tableau récupération des 5 octets de réponse du lidar
+	char start[2] = {0xA5,0x20}; // tableaux de commandes pour le lidar 
+	
+	osDelay(100);
+	
+	Driver_USART0.Send(start,2); // Envoi de la commande de début d'acquisition
+	osSignalWait(0x04,osWaitForever);
+
+	//short DISTANCE_SORTED[360]; // tableau de la distance en fonction de l'angle 
+			
 	while(1){
 		
-	
-	
-	Driver_USART0.Receive(data,5); // reception de 5 octets de réponse du LIDAR (1 octet de qualité (2 bits -> S et S- à supp ), 2 octets angle (bit C à supp), 2 octets distance )
-	while (Driver_USART0.GetRxCount() <1 ) ; // attente buffer RX vide
+	for(i = 0; i<5; i++){			
+	osSignalWait(0x01,osWaitForever);		
+	Driver_USART0.Receive(&data[i],1); // reception de 5 octets de réponse du LIDAR (1 octet de qualité (2 bits -> S et S- à supp ), 2 octets angle (bit C à supp), 2 octets distance )
+	}
+		
+	GLCD_DrawString(0,40,"t"); 
 		
 	qualite = data[0]>>2; // décalage de deux car deux bits b0 et b1 inutiles pour la qualité 
 	angle = ((((data[2] << 7) | data[1])) >> 1) / 64.0; // (data[1] >> 1 ) bit C inutile donc décalage de 1, (data[2] << 7) on décale de 7 pour le mettre à la suite, le | sert à "fusionner" les deux datas, division par 60 car doc 
 	distance = (((data[4]<<7) | data[3])/4.0); // même principe de "fusion" sauf que pas de bit à supprimmer puis division par 4 doc
 		
-
 	
-		ptr_send = (DATASEND*) osMailAlloc(ID_BAL_DATALIDAR,osWaitForever); 
-		ptr_send->angle_S = angle;
-		ptr_send->distance_S = distance; 	
-		osMailPut(ID_BAL_DATALIDAR,ptr_send);
-	
-	
-	
-  
-	
-	
+	ptr_send = (DATASEND*) osMailAlloc(ID_BAL_DATALIDAR,osWaitForever); 
+	ptr_send->angle_S = angle;
+	ptr_send->distance_S = distance; 	
+	osMailPut(ID_BAL_DATALIDAR,ptr_send);
+		
 	}
 }
+	
 void Thread_Print_Lidar(void const *argument){
 	
 	osEvent EVretour; 
@@ -166,7 +201,6 @@ void Thread_Print_Lidar(void const *argument){
 		osMailFree(ID_BAL_DATALIDAR,ptr_rec); 
 		
 		
-			
 		angle_rad = angle_R * (PI /180.0);
 		
 		
@@ -181,30 +215,24 @@ void Thread_Print_Lidar(void const *argument){
 		if (x <-160)x=-160;
 		if (y >120)y=119;
 		if (y<-120)y=-120;
-		
-		//----------------------affichage cos sin angle----------------------------
+
+		//GLCD_DrawPixel(x+160, y+120);
+			
+//----------------------affichage cos sin angle----------------------------
 		/*sprintf(aff_COS, "cos  = %f" ,cos(angle_rad)); 
 		GLCD_DrawString(0,40,aff_COS);
 		sprintf(aff_ANGLE, "x  = %4f" ,x);  
 		GLCD_DrawString(0,80,aff_ANGLE);
 		sprintf(aff_SIN, "y  = %4f" ,y);  
 		GLCD_DrawString(0,120,aff_SIN);*/
-				
 		
-		
-		GLCD_DrawPixel(x+160, y+120);
-			
-		
-		
-		
+//--------------affichage x,y en dur------------------------------- 		
 		/*sprintf(aff_ANGLE, " %3d" ,x); 
 		GLCD_DrawString(0,40,aff_ANGLE);
 		
 		sprintf(aff_DISTANCE, "y  = %4d" ,y); 
-		GLCD_DrawString(0,80,aff_DISTANCE);*/
-		
-		
-	 //--------------affichage données en dur------------------------------- 
+		GLCD_DrawString(0,80,aff_DISTANCE);*/	
+//--------------affichage données en dur------------------------------- 
 	 /*
 	 //affichage angle  	
 		sprintf(aff_ANGLE, "Angle = %3d" ,angle_R); 
@@ -215,6 +243,5 @@ void Thread_Print_Lidar(void const *argument){
 		GLCD_DrawString(0,80,aff_DISTANCE);
 	 */
 	}
-
 }
 

@@ -28,26 +28,18 @@ Project File Date:  03/14/2024
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 compiling main_test_PWM.c...
-main_test_PWM.c(42): warning:  #177-D: variable "stop" was declared but never referenced
-  	char stop[2] = {0xA5,0x25}; 
-main_test_PWM.c(43): warning:  #177-D: variable "info" was declared but never referenced
-  	char info[2] = {0xA5,0x50}; 
-main_test_PWM.c(44): warning:  #177-D: variable "health" was declared but never referenced
-  	char health[2] = {0xA5,0x52}; 
-main_test_PWM.c(112): warning:  #550-D: variable "qualite" was set but never used
+main_test_PWM.c(86): warning:  #550-D: variable "mask" was set but never used
+    uint32_t mask;
+main_test_PWM.c(135): warning:  #177-D: variable "recep_ok" was declared but never referenced
+  	osEvent recep_ok;
+main_test_PWM.c(140): warning:  #550-D: variable "qualite" was set but never used
   	short qualite = 0; // variables des différentes réponses LIDAR 
-main_test_PWM.c(147): warning:  #177-D: variable "i" was declared but never referenced
+main_test_PWM.c(182): warning:  #177-D: variable "i" was declared but never referenced
   	float x,y,i;
-main_test_PWM.c(149): warning:  #177-D: variable "aff_COS" was declared but never referenced
-  	char aff_COS[20];
-main_test_PWM.c(150): warning:  #177-D: variable "aff_ANGLE" was declared but never referenced
-  	char aff_ANGLE[20];
-main_test_PWM.c(151): warning:  #177-D: variable "aff_SIN" was declared but never referenced
-  	char aff_SIN[20];
-main_test_PWM.c: 8 warnings, 0 errors
+main_test_PWM.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=27204 RO-data=7564 RW-data=132 ZI-data=12364  
-".\Objects\prog_test_PWM.axf" - 0 Error(s), 8 Warning(s).
+Program Size: Code=31424 RO-data=7744 RW-data=132 ZI-data=12364  
+".\Objects\prog_test_PWM.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -63,15 +55,15 @@ Package Vendor: ARM
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.LPC1700_DFP.2.4.0.pack
-                Keil::Device:PIN:1.0.0
+                Keil::Device:GPIO:1.1.0
                 NXP LPC1700 Series Device Support, Drivers and Examples for MCB1700 and LPC1788-32
-   * Component: PIN Version: 1.0.0
    * Component: GPIO Version: 1.1.0
    * Component: GPDMA Version: 1.2.0
    * Component: Startup Version: 1.0.0
-   * Component: SSP Version: 2.7.0
-   * Component: Graphic LCD Version: 1.0.0
+   * Component: PIN Version: 1.0.0
    * Component: USART Version: 2.6.0
+   * Component: Graphic LCD Version: 1.0.0
+   * Component: SSP Version: 2.7.0
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.MDK-Middleware.7.0.0.pack
@@ -103,52 +95,52 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.3.0
 
    * Component: ARM::CMSIS:RTOS:Keil RTX:4.82.0
-      Source file:   CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MsgQueue.c
-      Include file:  CMSIS\RTOS\RTX\INC\cmsis_os.h
-      Include file:  CMSIS\RTOS\RTX\UserCodeTemplates\osObjects.h
       Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Semaphore.c
+      Source file:   CMSIS\RTOS\RTX\SRC\ARM\SVC_Table.s
+      Include file:  CMSIS\RTOS\RTX\INC\cmsis_os.h
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Mutex.c
+      Source file:   CMSIS\RTOS\RTX\Templates\RTX_Conf_CM.c
+      Include file:  CMSIS\RTOS\RTX\UserCodeTemplates\osObjects.h
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MsgQueue.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MailQueue.c
+      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Thread.c
+      Library file:  CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib
       Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Timer.c
       Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\main.c
       Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MemPool.c
-      Library file:  CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib
-      Source file:   CMSIS\RTOS\RTX\SRC\ARM\SVC_Table.s
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\MailQueue.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Thread.c
-      Source file:   CMSIS\RTOS\RTX\UserCodeTemplates\Mutex.c
+
+   * Component: Keil::Device:GPIO:1.1.0
+      Include file:  RTE_Driver\GPIO_LPC17xx.h
+      Source file:   RTE_Driver\GPIO_LPC17xx.c
+
+   * Component: Keil::Device:GPDMA:1.2.0
+      Include file:  RTE_Driver\GPDMA_LPC17xx.h
+      Source file:   RTE_Driver\GPDMA_LPC17xx.c
+
+   * Component: Keil::Device:Startup:1.0.0
+      Source file:   Device\Source\system_LPC17xx.c
+      Include file:  Device\Include\LPC17xx.h
+      Source file:   Device\Source\ARM\startup_LPC17xx.s
+      Include file:  RTE_Driver\Config\RTE_Device.h
 
    * Component: Keil::Device:PIN:1.0.0
       Include file:  RTE_Driver\PIN_LPC17xx.h
       Source file:   RTE_Driver\PIN_LPC17xx.c
 
-   * Component: Keil::Device:GPIO:1.1.0
-      Source file:   RTE_Driver\GPIO_LPC17xx.c
-      Include file:  RTE_Driver\GPIO_LPC17xx.h
-
-   * Component: Keil::Device:GPDMA:1.2.0
-      Source file:   RTE_Driver\GPDMA_LPC17xx.c
-      Include file:  RTE_Driver\GPDMA_LPC17xx.h
-
-   * Component: Keil::Device:Startup:1.0.0
-      Include file:  RTE_Driver\Config\RTE_Device.h
-      Include file:  Device\Include\LPC17xx.h
-      Source file:   Device\Source\system_LPC17xx.c
-      Source file:   Device\Source\ARM\startup_LPC17xx.s
-
-   * Component: Keil::CMSIS Driver:SPI:SSP:2.7.0
-      Source file:   RTE_Driver\SSP_LPC17xx.c
+   * Component: Keil::CMSIS Driver:USART:2.6.0
+      Source file:   RTE_Driver\UART_LPC17xx.c
 
    * Component: Keil.MCB1700::Board Support:Graphic LCD:1.0.0
       Source file:   Boards\Keil\MCB1700\Common\GLCD_Fonts.c
       Source file:   Boards\Keil\MCB1700\Common\GLCD_MCB1700.c
       Include file:  Boards\Keil\MCB1700\Common\GLCD_Config.h
 
-   * Component: Keil::CMSIS Driver:USART:2.6.0
-      Source file:   RTE_Driver\UART_LPC17xx.c
+   * Component: Keil::CMSIS Driver:SPI:SSP:2.7.0
+      Source file:   RTE_Driver\SSP_LPC17xx.c
 
    * Component: ::Board Support:Graphic LCD:1.00 (API)
       Include file:  Board\Board_GLCD.h
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
