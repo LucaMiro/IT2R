@@ -1,5 +1,5 @@
 Dependencies for Project 'DFPlayer', Target 'Target 1': (DO NOT MODIFY !)
-F (.\lib_DFPlayer.c)(0x65F8263D)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections-I U:\IT2R-DFPlayer_Mini\RTE-I U:\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\lib_dfplayer.o --omf_browse .\objects\lib_dfplayer.crf --depend .\objects\lib_dfplayer.d)
+F (.\lib_DFPlayer.c)(0x65F9C2D8)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections-I U:\IT2R-DFPlayer_Mini\RTE-I U:\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\lib_dfplayer.o --omf_browse .\objects\lib_dfplayer.crf --depend .\objects\lib_dfplayer.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55DB71C6)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\LPC17xx.h)(0x58493182)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25D706)
@@ -9,7 +9,7 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25D706)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\system_LPC17xx.h)(0x58493182)
-I (lib_DFPlayer.h)(0x65F825A0)
+I (lib_DFPlayer.h)(0x65F9C1EB)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\UART_LPC17xx.h)(0x5770DDB2)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include\Driver_USART.h)(0x5C8A78DC)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include\Driver_Common.h)(0x5C8A78DC)
@@ -17,7 +17,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x55DB71CE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB71C6)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\PIN_LPC17xx.h)(0x55828BEA)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\GPDMA_LPC17xx.h)(0x568FAF18)
-F (.\main.c)(0x65F828E3)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections-I U:\IT2R-DFPlayer_Mini\RTE-I U:\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x65F9C524)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections-I U:\IT2R-DFPlayer_Mini\RTE-I U:\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55DB71C6)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\LPC17xx.h)(0x58493182)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25D706)
@@ -27,7 +27,7 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25D706)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\system_LPC17xx.h)(0x58493182)
-I (lib_DFPlayer.h)(0x65F825A0)
+I (lib_DFPlayer.h)(0x65F9C1EB)
 F (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\UART_LPC17xx.c)(0x5770DDB2)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections-I U:\IT2R-DFPlayer_Mini\RTE-I U:\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\uart_lpc17xx.o --omf_browse .\objects\uart_lpc17xx.crf --depend .\objects\uart_lpc17xx.d)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\UART_LPC17xx.h)(0x5770DDB2)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\LPC17xx.h)(0x58493182)

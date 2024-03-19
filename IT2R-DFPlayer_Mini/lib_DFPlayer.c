@@ -36,25 +36,7 @@ void init_UART2(void){
 	return;
 }
 
-void init_DFPlayer(void){
-		short checksum=0;
-		commande com;
-		com.start=0x7E;
-		com.version=0xFF;
-		com.len=0x06;
-		com.commande=0x09;
-		com.commande_feedback=0x00;
-		com.parametre1 = 0x00;
-		com.parametre2 = 0x01;
-		checksum = - com.version - com.len - com.commande - com.commande_feedback - com.parametre1 - com.parametre2;
-		com.checksum1 = checksum>>8;
-		com.checksum2 = checksum;
-		com.end = 0xEF;
-	
-		while(Driver_USART2.GetStatus().tx_busy == 1); // attente buffer TX vide
-		Driver_USART2.Send(&com,10);
-		return;
-}
+
 	
 void choisir_music(uint16_t channel)
 	{
@@ -63,7 +45,7 @@ void choisir_music(uint16_t channel)
 		music.start=0x7E;
 		music.version=0xFF;
 		music.len=0x06;
-		music.commande=0x03;
+		music.commande=0x0F;
 		music.commande_feedback=0x00;
 		music.parametre1 = channel>>8;
 		music.parametre2 = channel;
@@ -77,5 +59,7 @@ void choisir_music(uint16_t channel)
 		return;
 	}
 	
+
+
 	
 	
