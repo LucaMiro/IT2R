@@ -4,21 +4,36 @@
 #include "Driver_I2C.h"
 #include "Driver_CAN.h"
 
+extern ARM_DRIVER_CAN Driver_CAN1;
 extern osThreadId ID_US;
 extern osThreadId ID_PARKING;
 
-osThreadId ID_GPIO;
+osThreadId ID_writeCAN;
+osThreadId ID_readCAN;
 
+uint8_t mesure(uint8_t capteur);
+//void initialisation_CAN(void);
 void initialisation_GPIO(void);
 
 void tache_US(void const *arg);
-void tache_GPIO(void const *arg);
+void tache_PARKING(void const *arg);
+void tache_writeCAN(void const *arg);
+//void tache_readCAN(void const *arg);
 
 osMailQId ID_BAL;
 osMailQDef(BAL, 10, mailBox);
 
 GPIO_InitTypeDef GPIOC_4;
 GPIO_InitTypeDef GPIOC_5;
+
+void ARM_CAN_CallbackEvent(uint32_t obj_idx, uint32_t event){
+	if(event & ARM_CAN_EVENT_SEND_COMPLETE){
+		osSignalSet(ID_writeCAN, CAN_EVENT);
+	}
+	if(event & ARM_CAN_EVENT_RECEIVE){
+		osSignalSet(ID_readCAN, CAN_EVENT);
+	}
+}
 
 void tache_US(void const *arg){	
 	mailBox *envoi;
@@ -27,10 +42,10 @@ void tache_US(void const *arg){
 		envoi = osMailAlloc(ID_BAL,osWaitForever);
 		mesureUS_RTOSBis(envoi);
 		cotes = envoi->gauche & envoi->droite;
-		if((cotes < 0x19)||(envoi->centre < 0x19)){ //SI UN DES CAPTEURS DETECTE
+		if((cotes < 0x19)||(envoi->centre < 0x19)){
 			envoi->alerte = 0x01;
 		}
-		if((cotes < 0x19)&&(envoi->centre < 0x19)){ //SI TOUS LES CAPTEURS DETECTENT
+		if((cotes < 0x19)&&(envoi->centre < 0x19)){
 			envoi->alerte = 0x02;
 		}
 	  osMailPut(ID_BAL, envoi);
@@ -41,7 +56,7 @@ void tache_PARKING(void const *arg){
 	mailBox *envoiPark;
 	uint8_t mesureGauche, mesureDroite, mesureCentre;
 	while(1){
-		//osSignalWait(US_CAN_EVENT, osWaitForever);
+		osSignalWait(US_CAN_EVENT, osWaitForever);
 		envoiPark = osMailAlloc(ID_BAL,osWaitForever);
 		envoiPark->alerte = 0x00;
 		mesureUS_RTOSBis(envoiPark);
@@ -49,43 +64,45 @@ void tache_PARKING(void const *arg){
 	}
 }
 
-
-//tache de test traitement GPIO
-void tache_GPIO(void const *arg){
+void tache_writeCAN(void const *arg){
+	ARM_CAN_MSG_INFO trame_envoi;
 	osEvent eventBAL;
 	mailBox *reception;
-	while(1){
+	uint8_t envoiCAN[4];
+	
+	trame_envoi.id = ARM_CAN_STANDARD_ID(ID_TRAME_US);
+	trame_envoi.rtr = 0;
+
+	while(1) {
 		eventBAL = osMailGet(ID_BAL, osWaitForever);
-		reception = eventBAL.value.p; 
-		if(reception->alerte == 0x01) {
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_RESET);
-		}
-		else if(reception->alerte == 0x02){
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4, GPIO_PIN_SET);
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
-		}
-		else {
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_RESET);
-		}
+		envoiCAN[0] = reception->alerte; //envoi du type d'alerte
+		envoiCAN[1] = reception->gauche; //envoi de la valeur du capteur gauche
+		envoiCAN[2] = reception->centre; //envoi de la valeur du capteur central
+		envoiCAN[3] = reception->droite; //envoi de la valeur du capteur droite
+		Driver_CAN1.MessageSend(1, &trame_envoi, envoiCAN, 4);
+		osSignalWait(CAN_EVENT, osWaitForever);
 		osMailFree(ID_BAL, reception);
+		osDelay(500);
 	}
 }
 
 int main(void){
 	//définition des priorités
 	osThreadDef(tache_US, osPriorityNormal, 1, 0);
-	osThreadDef(tache_GPIO, osPriorityNormal, 1, 0);
+	osThreadDef(tache_PARKING, osPriorityNormal, 1, 0);
+	osThreadDef(tache_writeCAN, osPriorityNormal, 1, 0);
+	//osThreadDef(tache_readCAN, osPriorityNormal, 1, 0);
 
 	osKernelInitialize();
 	//cr?ation des objets
 	ID_US = osThreadCreate(osThread(tache_US), NULL);
-	ID_GPIO = osThreadCreate(osThread(tache_GPIO), NULL);
+	ID_PARKING = osThreadCreate(osThread(tache_PARKING), NULL);
+	ID_writeCAN = osThreadCreate(osThread(tache_writeCAN), NULL);
+	//ID_readCAN = osThreadCreate(osThread(tache_readCAN), NULL);
 
 	ID_BAL = osMailCreate(osMailQ(BAL), NULL);
 	
-	initialisation_GPIO();
+	//initialisation_GPIO();
 	configI2C_RTOS();
 	
 	osKernelStart();
@@ -94,21 +111,32 @@ int main(void){
 	return(0);
 }
 
-void initialisation_GPIO(void) {
-    //activation horloge du port GPIO C
-    __HAL_RCC_GPIOC_CLK_ENABLE();
+void initialisation_CAN(void){
+	Driver_CAN1.Initialize(NULL, ARM_CAN_CallbackEvent);
+	Driver_CAN1.PowerControl(ARM_POWER_FULL);
+	Driver_CAN1.SetMode(ARM_CAN_MODE_INITIALIZATION);
+	Driver_CAN1.SetBitrate( ARM_CAN_BITRATE_NOMINAL, 125000,
+							ARM_CAN_BIT_PROP_SEG(5U) | 
+							ARM_CAN_BIT_PHASE_SEG1(1U) | 
+							ARM_CAN_BIT_PHASE_SEG2(1U) | 
+							ARM_CAN_BIT_SJW(1U)
+	);
 	
-		GPIOC_4.Pin     = GPIO_PIN_4; 
-    GPIOC_4.Mode    = GPIO_MODE_OUTPUT_PP;			
-		//broche 4 sélectionnée, mode sortie "PULL PUSH"
-    GPIOC_4.Pull    = GPIO_PULLUP; 			//tirage PULL UP
-    GPIOC_4.Speed   = GPIO_SPEED_FREQ_LOW; 	//fréquence de fonctionnement basse
-		HAL_GPIO_Init(GPIOC, &GPIOC_4); 
-	
-		GPIOC_5.Pin     = GPIO_PIN_5; 
-    GPIOC_5.Mode    = GPIO_MODE_OUTPUT_PP;			
-		//broche 5 sélectionnée, mode sortie "PULL PUSH"
-    GPIOC_5.Pull    = GPIO_PULLUP; 			//tirage PULL UP
-    GPIOC_5.Speed   = GPIO_SPEED_FREQ_LOW; 	//fréquence de fonctionnement basse
-		HAL_GPIO_Init(GPIOC, &GPIOC_5); 
 }
+
+/*
+void tache_readCAN(void const *arg){
+	ARM_CAN_MSG_INFO trame_recue;
+	uint32_t id_trame;
+	osEvent signalCAN;
+	while(1){
+		signalCAN = osSignalWait(CAN_EVENT, osWaitForever);
+		id_trame = trame_recue.id;
+		if(id_trame == ID_TRAME_PARK){
+			osSignalClear(ID_PARKING, US_CAN_EVENT);
+			osSignalSet(ID_PARKING, US_CAN_EVENT);
+		}
+	}
+}
+
+*/
