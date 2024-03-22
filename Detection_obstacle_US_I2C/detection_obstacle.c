@@ -7,14 +7,15 @@ NE PAS MODIFIER CE FICHIER
 #include "Driver_I2C.h"
 #include "cmsis_os.h"
 
-
 extern ARM_DRIVER_I2C Driver_I2C1;
 osThreadId ID_US;
+osThreadId ID_PARKING;
 
 //fonction callback event transfert I2C 
 void ARM_I2C_SignalEvent(uint32_t event){
 	if(event & ARM_I2C_EVENT_TRANSFER_DONE){
 		osSignalSet(ID_US, US_EVENT);
+		osSignalSet(ID_PARKING, US_EVENT);
 	}
 }
 
@@ -52,7 +53,46 @@ uint8_t mesureUS_RTOS(uint8_t capteur){
 	return mesure_ptr;
 }
 
-//fonction de configuration de la portée
+void mesureUS_RTOSBis(mailBox *mesureDist){
+	osEvent event;
+	uint8_t LowValReg=0x03;
+	uint8_t temp, mesure_ptr;
+	uint8_t i;
+
+	uint8_t adresse[3];
+	uint8_t tab[2];
+	uint8_t resultat[3];
+	
+	adresse[0] = CAPTEUR_AVG;
+	adresse[1] = CAPTEUR_AVC;
+	adresse[2] = CAPTEUR_AVD;
+
+	tab[0] = 0x00; //registre
+	tab[1] = 0x51; //commande mesure cm
+
+	for(i = 0; i < 3; i++){
+		Driver_I2C1.MasterTransmit(adresse[i], tab ,2,false);
+		event = osSignalWait(US_EVENT, osWaitForever);
+
+		temp = 0xFF;
+		do{
+		Driver_I2C1.MasterTransmit(adresse[i],&LowValReg,1, true);
+		event = osSignalWait(US_EVENT, osWaitForever);
+		Driver_I2C1.MasterReceive(adresse[i], &temp, 1, false);
+		}while(temp == 0xFF);
+		
+		Driver_I2C1.MasterTransmit(adresse[i],&LowValReg,1, true);
+		event = osSignalWait(US_EVENT, osWaitForever);
+		Driver_I2C1.MasterReceive(adresse[i], &resultat[i], 1, false);
+		event = osSignalWait(US_EVENT, osWaitForever);
+	}
+	mesureDist->gauche = resultat[0];
+	mesureDist->centre = resultat[1];
+	mesureDist->droite = resultat[2];
+}
+
+
+//fonction de configuration de la portÃ©e
 void config_portee(uint8_t portee, uint8_t adresse){
 	osEvent event;
 	uint8_t tableau_commande[2];
