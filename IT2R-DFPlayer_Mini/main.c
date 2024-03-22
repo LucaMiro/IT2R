@@ -8,7 +8,7 @@ int main(void){
 	init_UART2();
       
 	
-	choisir_music(0x0707);
+	choisir_music(doc_ultrason,son_alerteGeneral);
 	for(i=0;i<10000;i++);
 	
 	while(1){

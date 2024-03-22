@@ -38,7 +38,7 @@ void init_UART2(void){
 
 
 	
-void choisir_music(uint16_t channel)
+void choisir_music(uint8_t doc, uint8_t son)
 	{
 		short checksum=0;
 		commande music;
@@ -47,8 +47,8 @@ void choisir_music(uint16_t channel)
 		music.len=0x06;
 		music.commande=0x0F;
 		music.commande_feedback=0x00;
-		music.parametre1 = channel>>8;
-		music.parametre2 = channel;
+		music.parametre1 = doc;
+		music.parametre2 = son;
 		checksum = - music.version - music.len - music.commande - music.commande_feedback - music.parametre1 - music.parametre2;
 		music.checksum1 = checksum>>8;
 		music.checksum2 = checksum;
