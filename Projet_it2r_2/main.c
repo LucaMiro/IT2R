@@ -5,12 +5,20 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define GPS_DATA_SIZE 70
+
+void myUSART_callback(uint32_t event);
+
 extern ARM_DRIVER_USART Driver_USART1;
 extern GLCD_FONT GLCD_Font_16x24 ;
 
+  char gps_data[80]; // Tableau pour stocker la trame GPS
+  volatile int i = 0;
+
+int flag_fini = 0 ;
 
 void Init_UART(void){
-	Driver_USART1.Initialize(NULL);
+	Driver_USART1.Initialize(myUSART_callback);
 	Driver_USART1.PowerControl(ARM_POWER_FULL);
 	Driver_USART1.Control(	ARM_USART_MODE_ASYNCHRONOUS |
 							ARM_USART_DATA_BITS_8		|
@@ -22,42 +30,69 @@ void Init_UART(void){
 	Driver_USART1.Control(ARM_USART_CONTROL_RX,1);
 }
 
+
+void myUSART_callback(uint32_t event)
+{
+  if (event &  ARM_USART_EVENT_RECEIVE_COMPLETE) {
+	
+			if (gps_data[i] == 0x0A) // LF
+				{
+					//GLCD_DrawString(0,3*24,"fin");
+					flag_fini = 1 ;
+				}
+				else 
+				{
+					
+					if (gps_data[i] == ',') // LF
+					{
+						gps_data[i] = ' ';
+
+					}
+					
+					if ( gps_data[0] == '$' )
+					{
+						i++;
+					}
+					Driver_USART1.Receive(&gps_data[i],1); 
+				}
+			}
+					
+				if ( gps_data[4] == 'G' )
+					{
+						
+					}
+					Driver_USART1.Receive(&gps_data[i],1); 
+				}			
+
+
 int main (void)
-	{ 
-	char tab [36]; // MESSAGE ID : 6 --- UTC TIME = 10 --- LATITUDE = 9 -- N/S = 1 -- LONGITUDE = 10  
-	int i = 0 ;
-	char MESSAGE_ID[6],UTC_TIME[10],LATITUDE[9],INDICATOR[1],LONGITUDE[10];
+{
+	char  MESSAGE_ID [7], UTC_TIME [11], LATITUDE[10],LONGITUDE[11], NS[2]; 
 	Init_UART();
 	GLCD_Initialize();
 	GLCD_ClearScreen();
 	GLCD_SetFont(&GLCD_Font_16x24);
+	
+	//GLCD_DrawString(0,3*24,"debut");
 
-	while (1){
-		while(Driver_USART1.GetStatus().tx_busy == 1); // attente buffer TX vide
-		//GLCD_DrawString(0, 2*24,"etape 1");
+  while (1) {
+		i=0;
+		Driver_USART1.Receive(gps_data,1); 
 		
-		Driver_USART1.Receive(tab,36); 
-		//GLCD_DrawString(0, 3*24,"etape 2");
+		while(flag_fini != 1);
+		//GLCD_DrawString(0,3*24,"fin");
+		sscanf ( gps_data, "%s %s %s %s %s", MESSAGE_ID,UTC_TIME,LATITUDE,NS,LONGITUDE);
+		if (strncmp(gps_data, "$GPGGA", 6) == 0) 
+			{ 
+
+				GLCD_DrawString(0,1*24,MESSAGE_ID);
+				GLCD_DrawString(0,2*24,UTC_TIME);
+				GLCD_DrawString(0,3*24,LATITUDE);
+				GLCD_DrawString(0,4*24,NS);
+				GLCD_DrawString(0,5*24,LONGITUDE);
+			}
+		flag_fini = 0;
 		
-		while (Driver_USART1.GetRxCount() < 36 ) ; 
-	//GLCD_DrawString(0, 4*24,"etape 3 ");
-		
-		if ((tab[0] == '$')&& (tab[4] == 'G') && (tab[5] == 'A'))
-		{
-		for ( i = 0 ; tab[i]!=0 ; i++)
-   {
-       if (tab[i] == ',')
-       {
-           tab[i] = ' ' ;
-       }
-    }
-		//sscanf(tab,"%s",MESSAGE_ID);
-	 sscanf(tab,"%s %s %s %s %s",MESSAGE_ID,UTC_TIME,LATITUDE,INDICATOR,LONGITUDE);
-	 
-	 GLCD_DrawString(6*24,6*24,MESSAGE_ID);
-		}
-		else {
-			GLCD_DrawString(2*24,2*24,"ERREUR");
-		}
+	
 	}
 }
