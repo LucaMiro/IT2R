@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\DFPlayer.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\DFPlayer.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Tue Mar 26 17:17:56 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Tue Mar 26 17:38:20 2024
 <BR><P>
 <H3>Maximum Stack Usage =        168 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -639,23 +639,23 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
 </UL>
-<P><STRONG><a name="[49]"></a>CANthreadR</STRONG> (Thumb, 82 bytes, Stack size 40 bytes, thread.o(i.CANthreadR))
+<P><STRONG><a name="[49]"></a>CANthreadR</STRONG> (Thumb, 88 bytes, Stack size 40 bytes, thread.o(i.CANthreadR))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = CANthreadR &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalWait
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalWait
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_UART2
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;choisir_music
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;choisir_music
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> thread.o(.constdata)
 </UL>
-<P><STRONG><a name="[4a]"></a>CANthreadT</STRONG> (Thumb, 62 bytes, Stack size 32 bytes, thread.o(i.CANthreadT))
+<P><STRONG><a name="[4a]"></a>CANthreadT</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, thread.o(i.CANthreadT))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = CANthreadT
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalWait
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osSignalWait
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> thread.o(.constdata)
 </UL>
@@ -752,11 +752,11 @@ Global Symbols
 <P><STRONG><a name="[34]"></a>SystemInit</STRONG> (Thumb, 302 bytes, Stack size 0 bytes, system_lpc17xx.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(.text)
 </UL>
-<P><STRONG><a name="[48]"></a>Thread1</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, thread.o(i.Thread1))
+<P><STRONG><a name="[48]"></a>Thread1</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, thread.o(i.Thread1))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Thread1 &rArr; init_UART2
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_UART2
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> thread.o(.constdata)
@@ -801,7 +801,7 @@ Global Symbols
 
 <P><STRONG><a name="[7b]"></a>_mutex_release</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rtx_conf_cm.o(i._mutex_release), UNUSED, KEPT)
 
-<P><STRONG><a name="[af]"></a>choisir_music</STRONG> (Thumb, 130 bytes, Stack size 32 bytes, lib_dfplayer.o(i.choisir_music))
+<P><STRONG><a name="[b0]"></a>choisir_music</STRONG> (Thumb, 130 bytes, Stack size 32 bytes, lib_dfplayer.o(i.choisir_music))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = choisir_music
 </UL>
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANthreadR
@@ -887,7 +887,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadCreate
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelInitialize
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitCan2
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitCan1
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_UART2
@@ -910,7 +910,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> thread.o(i.InitCan2)
 </UL>
-<P><STRONG><a name="[b0]"></a>osDelay</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osDelay))
+<P><STRONG><a name="[ae]"></a>osDelay</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osDelay))
 <BR><BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Thread1
 <LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANthreadT
@@ -950,7 +950,7 @@ Global Symbols
 <LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myCAN1_callback
 </UL>
 
-<P><STRONG><a name="[ae]"></a>osSignalWait</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSignalWait))
+<P><STRONG><a name="[af]"></a>osSignalWait</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rt_cmsis.o(i.osSignalWait))
 <BR><BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANthreadT
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANthreadR
 </UL>

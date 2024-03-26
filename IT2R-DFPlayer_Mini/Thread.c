@@ -139,6 +139,7 @@ void CANthreadT(void const *argument)
 	ARM_CAN_MSG_INFO                tx_msg_info;
 	uint8_t data_buf[8];
 	
+	osDelay(100);
 	while (1) {
 
 		
@@ -149,7 +150,7 @@ void CANthreadT(void const *argument)
 		//.............
 
 		osSignalWait(0x01, osWaitForever);		// sommeil en attente fin emission
-		osDelay(10000);
+
 	}		
 }
 
@@ -163,6 +164,7 @@ void CANthreadR(void const *argument)
 	char texte[10];
 	init_UART2();
 	
+		osDelay(100);
 	while(1)
 	{		
 		osSignalWait(0x01, osWaitForever);		// sommeil en attente réception
@@ -187,7 +189,7 @@ void CANthreadR(void const *argument)
 void Thread1 (void const *argument) {
 
 			init_UART2();
-	
+			osDelay(100);
   while (1) {
 		
 			//choisir_music(doc_ultrason,son_alerteGeneral);
