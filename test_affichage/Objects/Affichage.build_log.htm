@@ -28,11 +28,11 @@ Project File Date:  03/26/2024
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
 compiling main.c...
-main.c(19): warning:  #1-D: last line of file ends without a newline
+main.c(35): warning:  #1-D: last line of file ends without a newline
   }
 main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=9084 RO-data=6664 RW-data=48 ZI-data=808  
+Program Size: Code=11484 RO-data=6664 RW-data=48 ZI-data=808  
 ".\Objects\Affichage.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -45,21 +45,21 @@ Package Vendor: ARM
    * Component: CORE Version: 5.3.0
 
 Package Vendor: Keil
+                http://www.keil.com/pack/Keil.LPC1700_DFP.2.4.0.pack
+                Keil::Device:PIN:1.0.0
+                NXP LPC1700 Series Device Support, Drivers and Examples for MCB1700 and LPC1788-32
+   * Component: PIN Version: 1.0.0
+   * Component: Startup Version: 1.0.0
+   * Component: GPIO Version: 1.1.0
+   * Component: GPDMA Version: 1.2.0
+   * Component: SSP Version: 2.7.0
+   * Component: Graphic LCD Version: 1.0.0
+
+Package Vendor: Keil
                 http://www.keil.com/pack/Keil.MDK-Middleware.7.0.0.pack
                 ::Board Support:Graphic LCD:1.00 (API)
                 Keil MDK-ARM Professional Middleware for ARM Cortex-M based devices
    * Component: Graphic LCD Version: 1.00
-
-Package Vendor: Keil
-                http://www.keil.com/pack/Keil.LPC1700_DFP.2.4.0.pack
-                Keil.MCB1700::Board Support:Graphic LCD:1.0.0
-                NXP LPC1700 Series Device Support, Drivers and Examples for MCB1700 and LPC1788-32
-   * Component: Graphic LCD Version: 1.0.0
-   * Component: Startup Version: 1.0.0
-   * Component: PIN Version: 1.0.0
-   * Component: GPDMA Version: 1.2.0
-   * Component: GPIO Version: 1.1.0
-   * Component: SSP Version: 2.7.0
 
 <h2>Collection of Component include folders:</h2>
   U:\test_affichage\RTE
@@ -78,34 +78,34 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.3.0
 
-   * Component: ::Board Support:Graphic LCD:1.00 (API)
-      Include file:  Board\Board_GLCD.h
-
-   * Component: Keil.MCB1700::Board Support:Graphic LCD:1.0.0
-      Source file:   Boards\Keil\MCB1700\Common\GLCD_MCB1700.c
-      Include file:  Boards\Keil\MCB1700\Common\GLCD_Config.h
-      Source file:   Boards\Keil\MCB1700\Common\GLCD_Fonts.c
-
-   * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\ARM\startup_LPC17xx.s
-      Source file:   Device\Source\system_LPC17xx.c
-      Include file:  RTE_Driver\Config\RTE_Device.h
-      Include file:  Device\Include\LPC17xx.h
-
    * Component: Keil::Device:PIN:1.0.0
       Include file:  RTE_Driver\PIN_LPC17xx.h
       Source file:   RTE_Driver\PIN_LPC17xx.c
 
-   * Component: Keil::Device:GPDMA:1.2.0
-      Source file:   RTE_Driver\GPDMA_LPC17xx.c
-      Include file:  RTE_Driver\GPDMA_LPC17xx.h
+   * Component: Keil::Device:Startup:1.0.0
+      Include file:  Device\Include\LPC17xx.h
+      Source file:   Device\Source\system_LPC17xx.c
+      Include file:  RTE_Driver\Config\RTE_Device.h
+      Source file:   Device\Source\ARM\startup_LPC17xx.s
 
    * Component: Keil::Device:GPIO:1.1.0
       Include file:  RTE_Driver\GPIO_LPC17xx.h
       Source file:   RTE_Driver\GPIO_LPC17xx.c
 
+   * Component: Keil::Device:GPDMA:1.2.0
+      Include file:  RTE_Driver\GPDMA_LPC17xx.h
+      Source file:   RTE_Driver\GPDMA_LPC17xx.c
+
    * Component: Keil::CMSIS Driver:SPI:SSP:2.7.0
       Source file:   RTE_Driver\SSP_LPC17xx.c
+
+   * Component: Keil.MCB1700::Board Support:Graphic LCD:1.0.0
+      Include file:  Boards\Keil\MCB1700\Common\GLCD_Config.h
+      Source file:   Boards\Keil\MCB1700\Common\GLCD_Fonts.c
+      Source file:   Boards\Keil\MCB1700\Common\GLCD_MCB1700.c
+
+   * Component: ::Board Support:Graphic LCD:1.00 (API)
+      Include file:  Board\Board_GLCD.h
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

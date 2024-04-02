@@ -10,6 +10,7 @@
       <TargetName>Target 1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060061::V5.06 update 1 (build 61)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>LPC1768</Device>
@@ -414,6 +415,13 @@
       <Groups>
         <Group>
           <GroupName>Source Group 1</GroupName>
+          <Files>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\main.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::Board Support</GroupName>
@@ -483,8 +491,39 @@
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
+      <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="LPC17xx CMSIS Device ARMCC">
+        <package name="LPC1700_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
     </components>
-    <files/>
+    <files>
+      <file attr="config" category="header" condition="LPC1700 CMSIS Device" name="RTE_Driver\Config\RTE_Device.h" version="2.4.1">
+        <instance index="0">RTE\Device\LPC1768\RTE_Device.h</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="LPC17xx CMSIS Device ARMCC"/>
+        <package name="LPC1700_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" condition="LPC176x" name="Device\Source\ARM\startup_LPC17xx.s" version="1.0.0">
+        <instance index="0">RTE\Device\LPC1768\startup_LPC17xx.s</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="LPC17xx CMSIS Device ARMCC"/>
+        <package name="LPC1700_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </file>
+      <file attr="config" category="source" condition="LPC176x" name="Device\Source\system_LPC17xx.c" version="1.0.0">
+        <instance index="0">RTE\Device\LPC1768\system_LPC17xx.c</instance>
+        <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="LPC17xx CMSIS Device ARMCC"/>
+        <package name="LPC1700_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.4.0"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </file>
+    </files>
   </RTE>
 
 </Project>
