@@ -59,6 +59,7 @@ void myCAN2_callback(uint32_t obj_idx, uint32_t event)
 
 // CAN1 utilisé pour réception
 void InitCan1 (void) {
+	
 	Driver_CAN1.Initialize(NULL,myCAN1_callback);
 	Driver_CAN1.PowerControl(ARM_POWER_FULL);
 	
@@ -77,6 +78,7 @@ void InitCan1 (void) {
 	Driver_CAN1.ObjectConfigure(0,ARM_CAN_OBJ_RX);				// Objet 0 du CAN1 pour réception
 	
 	Driver_CAN1.SetMode(ARM_CAN_MODE_NORMAL);					// fin init
+	
 }
 
 
@@ -115,9 +117,10 @@ int main (void) {
 	
 	// Initialisation des 2 périphériques CAN
 	InitCan1();
-	InitCan2();
+
 	LPC_GPIO0->FIODIR2&=0x01;
 	init_UART2();
+	choisir_music(doc_voiture,son_klaxon3);
 
   // create 'thread' functions that start executing,
   // example: tid_name = osThreadCreate (osThread(name), NULL);
@@ -137,7 +140,7 @@ int main (void) {
 void CANthreadT(void const *argument)
 {
 	ARM_CAN_MSG_INFO                tx_msg_info;
-	uint8_t data_buf[8];
+	uint8_t data_buf[2];
 	
 	osDelay(100);
 	while (1) {
@@ -159,29 +162,27 @@ void CANthreadT(void const *argument)
 void CANthreadR(void const *argument)
 {
 	ARM_CAN_MSG_INFO   rx_msg_info;
-	int identifiant, retour, taille;
-	uint8_t data_buf[8];
-	char texte[10];
+	int identifiant, retour,retour2, taille;
+	uint8_t data_buf[2];
+	char texte[2];
 	init_UART2();
 	
 		osDelay(100);
 	while(1)
 	{		
+		
 		osSignalWait(0x01, osWaitForever);		// sommeil en attente réception
 		Driver_CAN1.MessageRead(0,&rx_msg_info,data_buf,8);
 		identifiant = rx_msg_info.id;
 		retour=data_buf[0];
+		retour=data_buf[1];
 		taille=rx_msg_info.dlc;
 		
-		sprintf(texte,"%d   %d ",retour,identifiant);
-
-			choisir_music(doc_ultrason,son_alerteGeneral);
-			osDelay(6000);
+		sprintf(texte,"%d   %d ",retour,retour2);
 		
+		choisir_music(retour,retour2);
+
 		// Code pour reception trame + affichage Id et Data sur LCD
-
-		osDelay(1000);
-
 	}
 }
 
@@ -192,8 +193,8 @@ void Thread1 (void const *argument) {
 			osDelay(100);
   while (1) {
 		
-			//choisir_music(doc_ultrason,son_alerteGeneral);
-			osDelay(6000);
+			choisir_music(doc_ultrason,son_alerteGeneral);
+			osDelay(10);
     ; // Insert Thread code here...
     osThreadYield ();                                           // suspend Thread
   }
