@@ -14,7 +14,7 @@
 #include "DIALOG.h"
 #include "stdio.h"
 
-//osThreadId id_CANthreadR;
+osThreadId id_CANthreadR;
 osThreadId id_CANthreadT;
 
 ARM_CAN_MSG_INFO   rx_msg_info;
@@ -24,7 +24,7 @@ uint8_t data_buf[8];
 uint8_t data_buf2[8];
 
 int identifiant, retour, taille;
-//void CANthreadR(void const *argument);
+void CANthreadR(void const *argument);
 void CANthreadT(void const *argument);
 
 
@@ -74,6 +74,14 @@ void myCAN1_callbackT(uint32_t obj_idx, uint32_t event)
 				
         osSignalSet(id_CANthreadT, 0x01);
     }
+		else if (event & ARM_CAN_EVENT_RECEIVE)
+		{
+        /*  Message was received successfully by the obj_idx object. */
+				Driver_CAN1.MessageRead(0,&rx_msg_info,data_buf,8);
+       osSignalSet(id_CANthreadR, 0x01);
+		}
+			
+
 }
 
 int Init_GUIThread (void) {
@@ -84,32 +92,8 @@ int Init_GUIThread (void) {
   return(0);
 }
 
-// CAN1 utilisé pour réception
-//void InitCan1 (void) {
-//	Driver_CAN1.Initialize(NULL,myCAN1_callback);
-//	Driver_CAN1.PowerControl(ARM_POWER_FULL);
-//	
-//	Driver_CAN1.SetMode(ARM_CAN_MODE_INITIALIZATION);
-//	Driver_CAN1.SetBitrate( ARM_CAN_BITRATE_NOMINAL,
-//													125000,
-//													ARM_CAN_BIT_PROP_SEG(5U)   |         // Set propagation segment to 5 time quanta
-//                          ARM_CAN_BIT_PHASE_SEG1(1U) |         // Set phase segment 1 to 1 time quantum (sample point at 87.5% of bit time)
-//                          ARM_CAN_BIT_PHASE_SEG2(1U) |         // Set phase segment 2 to 1 time quantum (total bit is 8 time quanta long)
-//                          ARM_CAN_BIT_SJW(1U));                // Resynchronization jump width is same as phase segment 2
-//                          
-//	// Mettre ici les filtres ID de réception sur objet 0
-//	//....................................................
-////	Driver_CAN1.ObjectSetFilter(0,ARM_CAN_FILTER_ID_MASKABLE_ADD, ARM_CAN_STANDARD_ID(0xF6),0x000);
-//		
-//	Driver_CAN1.ObjectConfigure(0,ARM_CAN_OBJ_RX);				// Objet 0 du CAN1 pour réception
-//	
-//	Driver_CAN1.ObjectConfigure(2,ARM_CAN_OBJ_TX);				// Objet 2 du CAN1 pour emission
-//	
-//	Driver_CAN1.ObjectSetFilter(0, ARM_CAN_FILTER_ID_MASKABLE_ADD, ARM_CAN_STANDARD_ID(0xFFF), 0xFFF);
-//	
-//	Driver_CAN1.SetMode(ARM_CAN_MODE_NORMAL);					// fin init
-//}
-void InitCanT (void) {
+
+void InitCan (void) {
 	ARM_CAN_CAPABILITIES     can_cap;
 	ARM_CAN_OBJ_CAPABILITIES can_obj_cap;
 	uint32_t                 i, num_objects;
@@ -133,16 +117,16 @@ void InitCanT (void) {
 	//....................................................
 //	Driver_CAN1.ObjectSetFilter(0,ARM_CAN_FILTER_ID_MASKABLE_ADD, ARM_CAN_STANDARD_ID(0xF6),0x000);
 		
-	//Driver_CAN1.ObjectConfigure(0,ARM_CAN_OBJ_RX);				// Objet 0 du CAN1 pour réception
-	
+
 	 for (i = 0U; i < num_objects; i++) {                                          // Find first available object for receive and transmit
     can_obj_cap = Driver_CAN1.ObjectGetCapabilities (i);                            // Get object capabilities
-    if ((tx_obj_idx == 0xFFFFFFFFU) && (can_obj_cap.tx == 1U)) { tx_obj_idx = i; retour=i; break; }
+    if ((tx_obj_idx == 0xFFFFFFFFU) && (can_obj_cap.tx == 1U)) { tx_obj_idx = i; break; }
   }
-	
+	 
+		Driver_CAN1.ObjectConfigure(0,ARM_CAN_OBJ_RX);				// Objet 0 du CAN1 pour réception
 	Driver_CAN1.ObjectConfigure(2,ARM_CAN_OBJ_TX);				// Objet 2 du CAN1 pour emission
 	
-//	Driver_CAN1.ObjectSetFilter(0, ARM_CAN_FILTER_ID_MASKABLE_ADD, ARM_CAN_STANDARD_ID(0xFFF), 0xFFF);
+	Driver_CAN1.ObjectSetFilter(0, ARM_CAN_FILTER_ID_MASKABLE_ADD, ARM_CAN_STANDARD_ID(0xFFF), 0xFFF);
 	
 	Driver_CAN1.SetMode(ARM_CAN_MODE_NORMAL);					// fin init
 }
@@ -235,7 +219,7 @@ static void CPU_CACHE_Enable (void) {
   /* Enable D-Cache */
   SCB_EnableDCache();
 }
-//osThreadDef(CANthreadR,osPriorityNormal, 1,0);
+osThreadDef(CANthreadR,osPriorityNormal, 1,0);
 osThreadDef(CANthreadT,osPriorityNormal, 1,0);
 void GUIThread (void const *argument) {
 
@@ -255,6 +239,8 @@ void GUIThread (void const *argument) {
 
 	
 	osSignalSet(id_CANthreadT, 4);
+	osDelay(100);
+	osSignalSet(id_CANthreadR, 0x01);
 	/* Add GUI setup code here */
 
   while (1) {
@@ -277,36 +263,39 @@ void CANthreadT(void const *argument)
 	
 	
 	osSignalWait(4,osWaitForever);
-	InitCanT();
+	InitCan();
 	
 	while (1) {
 
 		
-		tx_msg_info.id = ARM_CAN_STANDARD_ID(0x12);// Code pour envoyer trame Id 0x128 
+		tx_msg_info.id = ARM_CAN_STANDARD_ID(0x50);// Code pour envoyer trame Id 0x128 
 		tx_msg_info.rtr = 0;
-		data_buf2[0] =  10;//(LPC_GPIO0->FIOPIN2&=0xFE);
+		data_buf2[0] =  20;//(LPC_GPIO0->FIOPIN2&=0xFE);
 		//.............
-		Driver_CAN1.MessageSend(2,&tx_msg_info,data_buf2,1);
+		Driver_CAN1.MessageSend(2,&tx_msg_info,data_buf2,1);//2 pour l'objet
 		osDelay(100);
 	}		
 }
 
 
 // tache reception
-//void CANthreadR(void const *argument)
-//{
-//	
-//	char texte[10];
-//	while(1)
-//	{		
-//		osSignalWait(0x01, osWaitForever);		// sommeil en attente réception
-//		identifiant = rx_msg_info.id;
-//		retour=data_buf[0];
-//		taille=rx_msg_info.dlc;
-//		
-//		
-//	}
-//}
+void CANthreadR(void const *argument)
+{
+	
+	char texte[10];
+	
+	osSignalWait(0x01, osWaitForever);
+	InitCan();
+	while(1)
+	{		
+		osSignalWait(0x01, osWaitForever);		// sommeil en attente réception
+		identifiant = rx_msg_info.id;
+		retour=data_buf[0];
+		taille=rx_msg_info.dlc;
+		
+		
+	}
+}
 /*********************************************************************
 *
 *       Main
@@ -320,9 +309,9 @@ int main (void) {
   Init_GUIThread();
 	
 	
-	//	InitCan1();
+		//InitCanT();
 	
-	//	id_CANthreadR = osThreadCreate (osThread(CANthreadR), NULL);
+	id_CANthreadR = osThreadCreate (osThread(CANthreadR), NULL);
 	id_CANthreadT = osThreadCreate (osThread(CANthreadT), NULL);
 	
   osKernelStart ();                         // start thread execution 
