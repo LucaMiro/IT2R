@@ -1,5 +1,5 @@
 Dependencies for Project 'DFPlayer', Target 'Target 1': (DO NOT MODIFY !)
-F (.\lib_DFPlayer.c)(0x660BF1FC)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\lib_dfplayer.o --omf_browse .\objects\lib_dfplayer.crf --depend .\objects\lib_dfplayer.d)
+F (.\lib_DFPlayer.c)(0x660ECFDD)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\lib_dfplayer.o --omf_browse .\objects\lib_dfplayer.crf --depend .\objects\lib_dfplayer.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55DB7FD6)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\LPC17xx.h)(0x58493F92)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25E516)
@@ -9,7 +9,7 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25E516)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (lib_DFPlayer.h)(0x660BF1FC)
+I (lib_DFPlayer.h)(0x660ECFDD)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\UART_LPC17xx.h)(0x5770EBC2)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include\Driver_USART.h)(0x5C8A86EC)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include\Driver_Common.h)(0x5C8A86EC)
@@ -17,12 +17,12 @@ I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x55DB7FDE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB7FD6)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\PIN_LPC17xx.h)(0x558299FA)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\GPDMA_LPC17xx.h)(0x568FBD28)
-F (.\Thread.c)(0x660C1969)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\thread.o --omf_browse .\objects\thread.crf --depend .\objects\thread.d)
+F (.\Thread.c)(0x660ED265)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\thread.o --omf_browse .\objects\thread.crf --depend .\objects\thread.d)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC\cmsis_os.h)(0x5C8A86EC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55DB7FE0)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x55DB7FDE)
-I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768\RTE_Device.h)(0x660BF1FE)
-I (lib_DFPlayer.h)(0x660BF1FC)
+I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768\RTE_Device.h)(0x660ED263)
+I (lib_DFPlayer.h)(0x660ECFDD)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55DB7FD6)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\LPC17xx.h)(0x58493F92)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25E516)
@@ -35,7 +35,7 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include\Driver_CAN.h)(0x5C8A
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include\Driver_Common.h)(0x5C8A86EC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB7FD6)
 F (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\LIB\ARM\RTX_CM3.lib)(0x5D25E518)()
-F (RTE\CMSIS\RTX_Conf_CM.c)(0x660BF1FE)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\rtx_conf_cm.o --omf_browse .\objects\rtx_conf_cm.crf --depend .\objects\rtx_conf_cm.d)
+F (RTE\CMSIS\RTX_Conf_CM.c)(0x660ECFDF)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\rtx_conf_cm.o --omf_browse .\objects\rtx_conf_cm.crf --depend .\objects\rtx_conf_cm.d)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC\cmsis_os.h)(0x5C8A86EC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55DB7FE0)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x55DB7FDE)
@@ -56,8 +56,8 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25E
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\PIN_LPC17xx.h)(0x558299FA)
-I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768\RTE_Device.h)(0x660BF1FE)
-I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\RTE_Components.h)(0x660BF1FE)
+I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768\RTE_Device.h)(0x660ED263)
+I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\RTE_Components.h)(0x660ECFDF)
 F (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\UART_LPC17xx.c)(0x5770EBC2)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\uart_lpc17xx.o --omf_browse .\objects\uart_lpc17xx.crf --depend .\objects\uart_lpc17xx.d)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\UART_LPC17xx.h)(0x5770EBC2)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\LPC17xx.h)(0x58493F92)
@@ -74,8 +74,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x55DB7FDE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB7FD6)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\PIN_LPC17xx.h)(0x558299FA)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\GPDMA_LPC17xx.h)(0x568FBD28)
-I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768\RTE_Device.h)(0x660BF1FE)
-I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\RTE_Components.h)(0x660BF1FE)
+I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768\RTE_Device.h)(0x660ED263)
+I (C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\RTE_Components.h)(0x660ECFDF)
 F (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\GPDMA_LPC17xx.c)(0x56936B86)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\gpdma_lpc17xx.o --omf_browse .\objects\gpdma_lpc17xx.crf --depend .\objects\gpdma_lpc17xx.d)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\LPC17xx.h)(0x58493F92)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25E516)
@@ -97,9 +97,9 @@ I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB04
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\system_LPC17xx.h)(0x58493F92)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver\PIN_LPC17xx.h)(0x558299FA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB7FD6)
-F (RTE\Device\LPC1768\RTE_Device.h)(0x660BF1FE)()
-F (RTE\Device\LPC1768\startup_LPC17xx.s)(0x660BF1FE)(--cpu Cortex-M3 --pd "__RTX SETA 1" -g --apcs=interwork -I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver--pd "__UVISION_VERSION SETA 517" --pd "_RTE_ SETA 1" --pd "LPC175x_6x SETA 1"--list .\listings\startup_lpc17xx.lst --xref -o .\objects\startup_lpc17xx.o --depend .\objects\startup_lpc17xx.d)
-F (RTE\Device\LPC1768\system_LPC17xx.c)(0x660BF1FE)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\system_lpc17xx.o --omf_browse .\objects\system_lpc17xx.crf --depend .\objects\system_lpc17xx.d)
+F (RTE\Device\LPC1768\RTE_Device.h)(0x660ED263)()
+F (RTE\Device\LPC1768\startup_LPC17xx.s)(0x660ECFDF)(--cpu Cortex-M3 --pd "__RTX SETA 1" -g --apcs=interwork -I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver--pd "__UVISION_VERSION SETA 517" --pd "_RTE_ SETA 1" --pd "LPC175x_6x SETA 1"--list .\listings\startup_lpc17xx.lst --xref -o .\objects\startup_lpc17xx.o --depend .\objects\startup_lpc17xx.d)
+F (RTE\Device\LPC1768\system_LPC17xx.c)(0x660ECFDF)(-c --cpu Cortex-M3 -D__RTX -g -O0 --apcs=interwork --split_sections-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE-I C:\Users\TEMP.GEII2.002\Desktop\IT2R-DFPlayer-CAN\IT2R-DFPlayer_Mini\RTE\Device\LPC1768-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Driver\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\RTOS\RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\RTE_Driver-D__UVISION_VERSION="517" -D_RTE_ -DLPC175x_6x-o .\objects\system_lpc17xx.o --omf_browse .\objects\system_lpc17xx.crf --depend .\objects\system_lpc17xx.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55DB7FE0)
 I (C:\Keil_v5\ARM\PACK\Keil\LPC1700_DFP\2.4.0\Device\Include\LPC17xx.h)(0x58493F92)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25E516)

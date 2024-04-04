@@ -707,7 +707,7 @@
 
 // <e> CAN2 Controller [Driver_CAN2]
 // <i> Configuration settings for Driver_CAN2 in component ::Drivers:CAN
-#define   RTE_CAN_CAN2                  1
+#define   RTE_CAN_CAN2                  0
 
 //   <h> Pin Configuration
 //     <o> CAN2_RD <0=>Not used <1=>P0_4 <2=>P2_7
