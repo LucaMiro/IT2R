@@ -11,6 +11,7 @@ void myUSART_callback(uint32_t event);
 
 extern ARM_DRIVER_USART Driver_USART1;
 extern GLCD_FONT GLCD_Font_16x24 ;
+extern GLCD_FONT GLCD_Font_6x8 ;
 
   char gps_data[80]; // Tableau pour stocker la trame GPS
   volatile int i = 0;
@@ -57,12 +58,12 @@ void myUSART_callback(uint32_t event)
 				}
 			}
 					
-				if ( gps_data[4] == 'G' )
-					{
-						
-					}
-					Driver_USART1.Receive(&gps_data[i],1); 
-				}			
+//				if ( gps_data[4] == 'G' )
+//					{
+//						
+//					}
+//					Driver_USART1.Receive(&gps_data[i],1); 
+}			
 
 
 int main (void)
@@ -95,4 +96,29 @@ int main (void)
 		
 	
 	}
+	
+	float x,y;
+	float Longitude,Latitude;
+	
+	Longitude = atof(LONGITUDE);
+	Latitude = atof(LATITUDE);
+	
+	GLCD_Initialize();
+	GLCD_ClearScreen();
+	
+	GLCD_SetFont(&GLCD_Font_16x24);
+	GLCD_SetFont(&GLCD_Font_6x8);
+	GLCD_DrawPixel(1,1);
+	GLCD_DrawRectangle(55,10,100,140);
+	GLCD_DrawRectangle(55,160,200,60);
+	GLCD_DrawRectangle(180,10,75,120);
+	//GLCD_DrawVLine(320,0,10);
+	
+	
+	x = (int)((4847.2653 - Latitude)*(265/0.0646))+55;
+	y = (int)((00219.7497 - Longitude )*(240/0.1218));
+	//GLCD_DrawPixel(x,y);
+	GLCD_SetForegroundColor(0);
+	GLCD_DrawString(x,y,"X");
+	//GLCD_DrawHLine(x,y,10);
 }
