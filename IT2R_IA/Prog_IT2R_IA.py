@@ -71,6 +71,12 @@ while True:
             for i in Resultats :  # il peut y avoir plusieurs identifications
                 img.draw_rectangle(i.rect(),color=(0,255,0)) # Tracé de la boite englobante
                 print(i)    # Sur terminal série, affichage du contenu de chaque résultat
+        else :
+
+            uart.write('RAS')
+
+
+
 
 
 

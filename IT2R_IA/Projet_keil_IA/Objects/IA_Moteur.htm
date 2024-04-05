@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\IA_Moteur.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\IA_Moteur.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Thu Apr 04 19:11:49 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Fri Apr 05 09:29:46 2024
 <BR><P>
 <H3>Maximum Stack Usage =        168 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -565,7 +565,8 @@ Global Symbols
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wr_dat_only
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wr_cmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_LCD
+<BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_LCD
 </UL>
 
 <P><STRONG><a name="[73]"></a>GLCD_DrawChar</STRONG> (Thumb, 194 bytes, Stack size 32 bytes, glcd_mcb1700.o(i.GLCD_DrawChar))
@@ -810,11 +811,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Control
 </UL>
 
-<P><STRONG><a name="[5e]"></a>main</STRONG> (Thumb, 84 bytes, Stack size 40 bytes, main.o(i.main))
+<P><STRONG><a name="[5e]"></a>main</STRONG> (Thumb, 102 bytes, Stack size 40 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = main &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GLCD_DrawString
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GLCD_ClearScreen
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_UART
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_LCD
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp

@@ -23,7 +23,7 @@ int main(void){
 	char STOP[10]; 
 	char Texte[10] = "STOP";
 	char Texte2[10];
-	int i;
+	int i,j;
 		
 	Init_UART();
 	Init_LCD(); 
@@ -37,10 +37,18 @@ int main(void){
 	//sprintf(Texte, "%5c", STOP); 
 		GLCD_DrawString(0,0,STOP);
 
-		//for (i = 0; i<1000000;i++){GLCD_ClearScreen(); }
+		
+		
 		i = strcmp(STOP,Texte);
-		sprintf(Texte2, "comp = %d",i);
+		
+		if (i == 0){
+		sprintf(Texte2, "PANNEAU STOP comp = %d",i);
 		GLCD_DrawString(0,70,Texte2);
+		}
+
+		
+		for (j = 0; j<1000000;j++){}; 
+		GLCD_ClearScreen();
 	
 
 	
