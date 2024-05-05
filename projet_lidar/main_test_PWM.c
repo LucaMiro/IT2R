@@ -62,7 +62,7 @@ void pwm_init_lidar(int DC);
 	ID_GetLidarData = osThreadCreate ( osThread(Thread_Data_Lidar), NULL ) ;
 	ID_PrintLidarData = osThreadCreate ( osThread(Thread_Print_Lidar), NULL ) ;
 	
-	osKernelStart() ; // lancement horloge TR, main retrouve sa priorité
+	osKernelStart() ; // lancement horloge TR, main retrouve sa prioritÃ©
 	
 	osDelay(osWaitForever) ;
 	
@@ -115,12 +115,12 @@ void pwm_init_lidar(int DC){
 	LPC_SC->PCONP = LPC_SC->PCONP | 0x00000040;   // enable PWM1
 	
 	LPC_PWM1->PR = 12;  // prescaler
-	LPC_PWM1->MR0 = 99;    // MR0+1=100   la période de la PWM vaut 1ms
+	LPC_PWM1->MR0 = 99;    // MR0+1=100   la pÃ©riode de la PWM vaut 1ms
 
 	
-	LPC_PINCON->PINSEL4 = LPC_PINCON->PINSEL4| 0x00000400; // P2.5 bit 11 à 0 bit 10 à 1 
+	LPC_PINCON->PINSEL4 = LPC_PINCON->PINSEL4| 0x00000400; // P2.5 bit 11 Ã  0 bit 10 Ã  1 
 	
-	LPC_PWM1->MCR = LPC_PWM1->MCR | 0x00000002; // Compteur relancé quand MR0 repasse à 0
+	LPC_PWM1->MCR = LPC_PWM1->MCR | 0x00000002; // Compteur relancÃ© quand MR0 repasse Ã  0
 	LPC_PWM1->LER = LPC_PWM1->LER | 0x00000040;  // ceci donne le droit de modifier dynamiquement la valeur du rapport cyclique
 	
 	LPC_PWM1->PCR = LPC_PWM1->PCR | 0x00004000;  // autorise les sortie PWM1/2/3 bits 9, 10, 11
@@ -138,30 +138,30 @@ void Thread_Data_Lidar(void const *argument){
 	
 	int i = 0; 
 	
-	short qualite = 0; // variables des différentes réponses LIDAR 
+	short qualite = 0; // variables des diffÃ©rentes rÃ©ponses LIDAR 
 	float	angle = 0;
 	float distance = 0;
 	
 	char aff_shit[20];
-	char data[5]; // tableau récupération des 5 octets de réponse du lidar
+	char data[5]; // tableau rÃ©cupÃ©ration des 5 octets de rÃ©ponse du lidar
 	char data_shit[7];
 	char start[2] = {0xA5,0x20}; // tableaux de commandes pour le lidar 
 		
-	Driver_USART0.Send(start,2); // Envoi de la commande de début d'acquisition
+	Driver_USART0.Send(start,2); // Envoi de la commande de dÃ©but d'acquisition
 	osSignalWait(0x04,osWaitForever);
 
 	//short DISTANCE_SORTED[360]; // tableau de la distance en fonction de l'angle 
-	Driver_USART0.Receive(data_shit,7); // reception de 5 octets de réponse du LIDAR (1 octet de qualité (2 bits -> S et S- à supp ), 2 octets angle (bit C à supp), 2 octets distance )
+	Driver_USART0.Receive(data_shit,7); // rÃ©cupÃ©ration de la donnÃ©e inutile (descripteur de la trame + A5 5A en dÃ©but de trame 
 	osSignalWait(0x01,osWaitForever);
 			
 	while(1){
 				
-	Driver_USART0.Receive(data,5); // reception de 5 octets de réponse du LIDAR (1 octet de qualité (2 bits -> S et S- à supp ), 2 octets angle (bit C à supp), 2 octets distance )
+	Driver_USART0.Receive(data,5); // reception de 5 octets de rÃ©ponse du LIDAR (1 octet de qualitÃ© (2 bits -> S et S- Ã  supp ), 2 octets angle (bit C Ã  supp), 2 octets distance )
 	osSignalWait(0x01,osWaitForever);
 			
-	qualite = data[0]>>2; // décalage de deux car deux bits b0 et b1 inutiles pour la qualité 
-	angle = ((((data[2] << 8) | data[1])) >> 1) / 64.0; // (data[1] >> 1 ) bit C inutile donc décalage de 1, (data[2] << 7) on décale de 7 pour le mettre à la suite, le | sert à "fusionner" les deux datas, division par 60 car doc 
-	distance = (((data[4]<<8) | data[3])/4.0); // même principe de "fusion" sauf que pas de bit à supprimmer puis division par 4 doc
+	qualite = data[0]>>2; // dÃ©calage de deux car deux bits b0 et b1 inutiles pour la qualitÃ© 
+	angle = ((((data[2] << 8) | data[1])) >> 1) / 64.0; // (data[1] >> 1 ) bit C inutile donc dÃ©calage de 1, (data[2] << 7) on dÃ©cale de 7 pour le mettre Ã  la suite, le | sert Ã  "fusionner" les deux datas, division par 60 car doc 
+	distance = (((data[4]<<8) | data[3])/4.0); // mÃªme principe de "fusion" sauf que pas de bit Ã  supprimmer puis division par 4 doc
 		
 	if (qualite > 0){
 	ptr_send = osMailAlloc(ID_BAL_DATALIDAR,osWaitForever); 
@@ -187,7 +187,7 @@ void Thread_Print_Lidar(void const *argument){
 	char aff_ANGLE[20];
 	char aff_SIN[20];
 	/*
-	char aff_COS[20]; // TAB servant de chaine de caractères pour sprintf 
+	char aff_COS[20]; // TAB servant de chaine de caractÃ¨res pour sprintf 
 	char aff_ANGLE[20];
 	char aff_DISTANCE[20];
 	*/
@@ -240,7 +240,7 @@ void Thread_Print_Lidar(void const *argument){
 		
 		sprintf(aff_DISTANCE, "y  = %4d" ,y); 
 		GLCD_DrawString(0,80,aff_DISTANCE);*/	
-//--------------affichage données en dur------------------------------- 
+//--------------affichage donnÃ©es en dur------------------------------- 
 	 /*
 	 //affichage angle  	
 		sprintf(aff_ANGLE, "Angle = %3d" ,angle_R); 
